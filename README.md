@@ -60,3 +60,41 @@ Implementation
 * Keras, http://machinelearningmastery.com/tutorial-first-neural-network-python-keras/
 * Tensorflow
 * scikit-learn
+
+The activation function
+-----------------------
+
+* Sigmoid, Tanh, ReLU
+* Pros and cons of different activation functions?
+* Softmax
+
+Forward propagation
+-------------------
+
+1. Take weights and input plus bias to compute the input to a layer.
+2. Apply activation function to input.
+3. Repeat
+
+Last layer may be different, e.g. softmax to get probabilities?
+
+We search the right parameters (weights plus bias) to minimize the error on the training data.
+
+Zoo of loss functions
+---------------------
+
+* square loss
+* hinge loss
+* logistic loss
+* cross-entropy loss
+
+[Are Loss Functions All the Same?](http://web.mit.edu/lrosasco/www/publications/loss.pdf)
+
+> The main outcome of our analysis is that, for classification, the hinge loss
+> appears to be the loss of choice. Other things being equal, the hinge loss
+> leads to a convergence rate practically indistinguishable from the logistic
+> loss rate and much better than the square loss rate.
+
+Usually loss plus regularization (prevent parameters from getting *too big*).
+
+More: http://www.ics.uci.edu/~dramanan/teaching/ics273a_winter08/lectures/lecture14.pdf
+
