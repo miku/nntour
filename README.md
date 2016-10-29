@@ -106,3 +106,11 @@ Gradient descent and variants.
 Input: Vector of derivatives of the loss function with respect to parameters (weights, biases).
 
 Use backpropagation, so find this vector of derivatives.
+
+Aka: credit assignment problem.
+
+MLP from sklearn
+================
+
+* http://scikit-learn.org/stable/modules/neural_networks_supervised.html
+
