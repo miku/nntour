@@ -98,3 +98,11 @@ Usually loss plus regularization (prevent parameters from getting *too big*).
 
 More: http://www.ics.uci.edu/~dramanan/teaching/ics273a_winter08/lectures/lecture14.pdf
 
+Minimizing the error
+--------------------
+
+Gradient descent and variants.
+
+Input: Vector of derivatives of the loss function with respect to parameters (weights, biases).
+
+Use backpropagation, so find this vector of derivatives.
