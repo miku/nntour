@@ -46,6 +46,17 @@ Cases where randomization helps:
 Neural network model
 --------------------
 
+TODO.
+
 Backpropagation
 ---------------
 
+TODO.
+
+Implementation
+==============
+
+* Various minimal variants
+* Keras, http://machinelearningmastery.com/tutorial-first-neural-network-python-keras/
+* Tensorflow
+* scikit-learn
