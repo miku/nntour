@@ -114,3 +114,17 @@ MLP from sklearn
 
 * http://scikit-learn.org/stable/modules/neural_networks_supervised.html
 
+Presentation
+============
+
+* ML problem
+* supervised, unsupervised
+* search for a model
+* e.g. given an architecture, find the right parameters
+* classification, separable data
+* perceptron example, gif!, python example
+* logical functions, images
+* example AND, OR, NOT (show, than ask if people recognize these functions)
+* embedded narrative: mappings of logical functions (PH)
+* the problem of XOR
+
