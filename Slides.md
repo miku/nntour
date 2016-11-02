@@ -21,3 +21,65 @@ proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 |  7 |7   | 7        |  6 |  5 |
 
 ----
+
+Representing Boolean Algebra as Classifiers
+=====
+| $x_1$ | $x_2$ | AND | OR | XOR | 
+|---|---|-----|----|-----|
+| 0 | 0 |  0  | 0  | 0   | 
+| 0 | 1 |  0  | 1  | 1   | 
+| 1 | 0 |  0  | 1  | 1   | 
+| 1 | 1 |  1  | 1  | 0   |
+
+---
+AND is linearly seperable 
+===
+<img src="images/AND.jpg" width="600"> 
+
+---
+One possible AND perceptron
+===
+<img src="images/AND_perceptron.jpg" width="600"> 
+
+---
+OR(/NOR) is linearly seperable
+===
+<img src="images/OR.jpg" width="600"> 
+
+---
+One possible AND perceptron
+===
+<img src="images/OR_perceptron.jpg" width="600"> 
+
+---
+XOR is not linearly separable
+===
+<img src="images/XOR.jpg" width="600"> 
+
+---
+XOR can be represented by a combination of two mappings
+===
+|point| $x_1$ | $x_2$ | $($AND | $\lor$ | NOR $)$ | XOR|
+|----|---|---|-----|----|-----|-|
+| a  | 0 | 0 		|  0  | 0  | 1   | 0 | 
+| b  | 0 | 1 		|  0  | 1  | 0   | 1 |
+| c  | 1 | 0 		|  0  | 1  | 0   | 1 |
+| d  | 1 | 1 		|  1  | 0  | 0   | 0 |
+
+---
+The extra mapping can be visualized
+===
+<img src="images/XOR_map.jpg" width="600"> 
+
+---
+One possible XOR Net 
+===
+The ones are fixed input (bias) units
+<img src="images/XOR_perceptron_1.jpg" width="600"> 
+
+---
+One alternative XOR Net
+===
+The number within the perceptron represents the inherent bias unit/or a translational shift when the unit jumps. 
+<img src="images/XOR_perceptron_2.jpg" width="600"> 
+
