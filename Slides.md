@@ -93,14 +93,28 @@ The extra mapping can be visualized
 <img src="images/XOR_map.jpg" width="600"> 
 
 ---
-One possible XOR Net 
+One possible XOR Net (#1)
 ===
 The ones are fixed input (bias) units
 <img src="images/XOR_perceptron_1.jpg" width="600"> 
 
 ---
-One alternative XOR Net
+One alternative XOR Net (#2)
 ===
 The number within the perceptron represents the inherent bias unit/or a translational shift when the unit jumps. 
 <img src="images/XOR_perceptron_2.jpg" width="600"> 
 
+---
+Two nets with the same result - why care?
+===
+
+|	| Net #1 | Net #2 |
+|---|----    |----    |
+|# weights| 9 | 5 |
+
+- Net #1 has more free variables
+- Net #1 has a higher dimensional weight space ($\mathbb{R}^9$ vs. $\mathbb{R}^5$)
+- Net #2 has less degrees of freedom and should generalize better.
+
+Why ist that? 
+- This architecture of the net has a direct effect on the optimization problem and the search space. 
