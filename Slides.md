@@ -1,3 +1,9 @@
+Neuronale Netze - Eine kurze Einf端hrung mit Implementierungen in Python
+===
+Philipp Hanemann, Martin Czygan
+
+---
+
 Hello World
 ========
 
