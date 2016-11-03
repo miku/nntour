@@ -27,7 +27,22 @@ proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 |  7 |7   | 7        |  6 |  5 |
 
 ----
+Idea of a perceptron as classifier
+===
+![](images/perceptron.png)
+Activation function can vary e.g.: 
+- step function 
 
+
+$$
+o_j=
+\begin{cases}
+1, \text{ if } net_j \geq 0 \\
+0, \text{ else}
+\end{cases}
+$$
+
+---
 Representing Boolean Algebra as Classifiers
 =====
 | $x_1$ | $x_2$ | AND | OR | XOR | 
