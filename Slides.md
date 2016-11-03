@@ -43,6 +43,20 @@ o_j=
 $$
 
 ---
+How to obtain the weights?
+===
+The objective is a good model fit.
+- trial an error $\rightarrow$ inefficient
+- optimization $\rightarrow \min\limits_{w}$ Cost($t, w$)
+with: 
+	$t$: target value
+	$w$: weight vector
+
+e.g. squared error as in linear regression
+$\Rightarrow$ optimization theory 
+- one efficient way for solving the problem is the use of backpropagation (error is "propagated" backwards through the grid)
+
+---
 Representing Boolean Algebra as Classifiers
 =====
 | $x_1$ | $x_2$ | AND | OR | XOR | 
