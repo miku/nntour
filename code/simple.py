@@ -26,11 +26,4 @@ import numpy as np
 Theta0 = np.random.rand(2, 1)
 Theta1 = np.random.rand(1, 1)
 
-a0 = np.array([[1, 0]])
-
-print(Theta0)
-print(a0)
-a1 = np.dot(Theta0, a0)
-print(a1)
-
-# TODO: complete toy implementation.
+# TODO: toy implementation.
