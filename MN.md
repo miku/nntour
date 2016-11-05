@@ -54,3 +54,13 @@ like in Yaser et. al. (2012), show:
 * 16x16 images
 * only two classes: 5 and 1
 * break down image into two features: intensity and symmetry
+
+----
+
+Another gif idea: Show, how the weight are become like tempates over the
+course of learning the weights.
+
+* like in https://www.youtube.com/watch?v=hAeos2TocJ8?t=40m30s
+
+But only for small grayscale images. Maybe templates for diagonals or simplest
+shapes.
