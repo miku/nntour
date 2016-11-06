@@ -19,12 +19,15 @@ if __name__ == '__main__':
     s1 = np.random.random((4, 1))
 
     for j in range(10000):
+        # sigmoid activation
         l1 = 1 / (1 + np.exp(-np.dot(X, s0)))
         l2 = 1 / (1 + np.exp(-np.dot(l1, s1)))
 
+        # logistic regression loss function
         l2_delta = (y - l2) * (l2 * (1 - l2))
         l1_delta = l2_delta.dot(s1.T) * (l1 * (1 - l1))
 
+        # weight update
         s1 += l1.T.dot(l2_delta)
         s0 += X.T.dot(l1_delta)
 
