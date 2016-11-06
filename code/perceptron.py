@@ -6,7 +6,7 @@ A simple perceptron.
 
 Create gif:
 
-    $ rm -f perceptron-00* perceptron-final*  && python perceptron.py && sh perceptron-gif.sh
+    $ make animation.gif
 """
 
 from __future__ import print_function
@@ -25,8 +25,8 @@ def generate_points(N, dim=2, xmin=-1, xmax=1):
     W, X, y = np.random.rand(dim + 1), [], []
 
     for i in range(N):
-	r = [random.uniform(xmin, xmax) for i in range(dim)]
-	x = np.append([1], np.array(r))
+        r = [random.uniform(xmin, xmax) for i in range(dim)]
+        x = np.append([1], np.array(r))
         s = np.sign(W.T.dot(x))
         X.append(x)
         y.append(s)
@@ -38,7 +38,7 @@ def drawimg(X, y, W, filename=None, title=''):
     Save data plus boundary to filname.
     """
     if not filename:
-	_, filename = tempfile.mkstemp(prefix='nntour-')
+        _, filename = tempfile.mkstemp(prefix='nntour-')
 
     plt.clf()
 
@@ -73,13 +73,13 @@ def perceptron_learning_algorithm(X, y, directory='images'):
     W = np.random.rand(3)
 
     def misclassfied_points(W):
-	"""
-	For a given weight vector, return a list of misclassified points.
-	"""
+        """
+        For a given weight vector, return a list of misclassified points.
+        """
         misses = []
 
         for i, x in enumerate(X):
-	    if np.sign(W.T.dot(x)) != y[i]:
+            if np.sign(W.T.dot(x)) != y[i]:
                 misses.append((x, y[i]))
 
         return misses
@@ -89,18 +89,18 @@ def perceptron_learning_algorithm(X, y, directory='images'):
     
     while True:
         misses = misclassfied_points(W)
-	print('PLA %s, misses: %d' % (W, len(misses)), file=sys.stderr)
+        print('PLA %s, misses: %d' % (W, len(misses)), file=sys.stderr)
 
-	# all examples classified correctly
+        # all examples classified correctly
         if len(misses) == 0:
             break
 
-	# draw current state
-	filename = "images/perceptron-%08d" % iteration
-	title = '#%d' % iteration
-	drawimg(X, y, W, filename=filename, title=title)
+        # draw current state
+        filename = "images/perceptron-%08d" % iteration
+        title = '#%d' % iteration
+        drawimg(X, y, W, filename=filename, title=title)
 
-	# core idea: weight update
+        # core idea: weight update
         point = random.choice(misses)
         W = W + point[1] * point[0]
 
@@ -116,14 +116,14 @@ def perceptron_learning_algorithm(X, y, directory='images'):
 if __name__ == '__main__':
     # path to save images
     if not os.path.exists('images'):
-	os.makedirs('images')
+        os.makedirs('images')
 
     # generate example data
     X, y = generate_points(100)
 
     # check, if we have example data for both classes
     if len(set(y)) == 1:
-	raise ValueError('bad luck, sample data has only a single class')
+        raise ValueError('bad luck, sample data has only a single class')
 
     W = perceptron_learning_algorithm(X, y)
 
