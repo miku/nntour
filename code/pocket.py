@@ -21,7 +21,7 @@ import tempfile
 
 from perceptron import generate_non_separable_points, drawimg
 
-def pocket_algorithm(X, y, directory='images', max_iterations=30):
+def pocket_algorithm(X, y, directory='images', max_iterations=50):
     """
     Perceptron learning algorithm, pocket version.
     Can work with non-separable data.
@@ -45,6 +45,9 @@ def pocket_algorithm(X, y, directory='images', max_iterations=30):
     # count number of iterations
     iteration = 0
     
+    # keep note of best weights and number of missed points
+    bestW, bestMisses = W, len(X)
+
     while True:
         misses = misclassfied_points(W)
         print('pocket %s, misses: %d' % (W, len(misses)), file=sys.stderr)
@@ -52,6 +55,11 @@ def pocket_algorithm(X, y, directory='images', max_iterations=30):
         # all examples classified correctly
         if len(misses) == 0 or iteration == max_iterations:
             break
+
+        # if these weight are better, take note
+        if len(misses) < bestMisses:
+            bestMisses = len(misses)
+            bestW = W
 
         # draw current state
         filename = "images/pocket-%08d" % iteration
@@ -63,6 +71,9 @@ def pocket_algorithm(X, y, directory='images', max_iterations=30):
         W = W + point[1] * point[0]
 
         iteration += 1
+
+    # use best W
+    W = bestW
 
     # draw final state
     filename = 'images/pocket-END'

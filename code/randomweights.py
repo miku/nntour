@@ -43,7 +43,7 @@ def random_guesses(X, y, directory='images', max_iterations=30):
     # count number of iterations
     iteration = 0
 
-    # keep not of best weights and number of missed points
+    # keep note of best weights and number of missed points
     bestW, bestMisses = W, len(X)
     
     while True:
