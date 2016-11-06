@@ -6,7 +6,7 @@ A simple perceptron.
 
 Create gif:
 
-    $ make animation.gif
+    $ make perceptron.gif
 """
 
 from __future__ import print_function
@@ -32,6 +32,20 @@ def generate_points(N, dim=2, xmin=-1, xmax=1):
         y.append(s)
 
     return X, y
+
+def generate_non_separable_points(N, p=0.0):
+    """
+    Generate non separable points, random version. Flip separable label with
+    probability p.
+    """
+    X, y = generate_points(N)
+    yy = []
+    for v in y:
+        if random.random() < p:
+            yy.append(-1 * v)
+        else:
+            yy.append(v)
+    return X, yy
 
 def drawimg(X, y, W, filename=None, title=''):
     """

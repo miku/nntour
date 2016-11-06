@@ -2,27 +2,29 @@
 # coding: utf-8
 
 """
-Demonstration of the vast solution space.
+A simple perceptron.
 
-What would happen, if we just randomly set the weights?
+Create gif:
 
-Do we ever get a correct classification?
-
-Create animation:
-
-    $ make random.gif
-
+    $ make pocket.gif
 """
+
 from __future__ import print_function
-import numpy as np
-import sys
-import os
-
 from perceptron import generate_points, drawimg
+import matplotlib.pyplot as plt
+import numpy as np
+import os
+import random
+import seaborn
+import sys
+import tempfile
 
-def random_guesses(X, y, directory='images', max_iterations=30):
+from perceptron import generate_non_separable_points, drawimg
+
+def pocket_algorithm(X, y, directory='images', max_iterations=30):
     """
-    Just make a guess. An informed weight "update" does not happen at all.
+    Perceptron learning algorithm, pocket version.
+    Can work with non-separable data.
     """
 
     # initialize weights
@@ -42,38 +44,28 @@ def random_guesses(X, y, directory='images', max_iterations=30):
 
     # count number of iterations
     iteration = 0
-
-    # keep not of best weights and number of missed points
-    bestW, bestMisses = W, len(X)
     
     while True:
         misses = misclassfied_points(W)
-        print('Random %s, misses: %d' % (W, len(misses)), file=sys.stderr)
+        print('pocket %s, misses: %d' % (W, len(misses)), file=sys.stderr)
 
         # all examples classified correctly
         if len(misses) == 0 or iteration == max_iterations:
             break
 
-        # if these weight are better, take note
-        if len(misses) < bestMisses:
-            bestMisses = len(misses)
-            bestW = W
-
         # draw current state
-        filename = "images/random-%08d" % iteration
+        filename = "images/pocket-%08d" % iteration
         title = '#%d' % iteration
         drawimg(X, y, W, filename=filename, title=title)
 
-        # next guess
-        W = np.random.rand(3)
+        # core idea: weight update
+        point = random.choice(misses)
+        W = W + point[1] * point[0]
 
         iteration += 1
 
-    # use best W
-    W = bestW
-
     # draw final state
-    filename = 'images/random-END'
+    filename = 'images/pocket-END'
     title = '#%d END' % iteration
     drawimg(X, y, W, filename=filename, title=title)
 
@@ -84,13 +76,13 @@ if __name__ == '__main__':
     if not os.path.exists('images'):
         os.makedirs('images')
 
-    # generate example data
-    X, y = generate_points(100)
+    # generate example data, with a bit of noise
+    X, y = generate_non_separable_points(100, p=0.1)
 
     # check, if we have example data for both classes
     if len(set(y)) == 1:
         raise ValueError('bad luck, sample data has only a single class')
 
-    W = random_guesses(X, y)
+    W = pocket_algorithm(X, y)
 
-    print('Random: final weights: %s' % W)
+    print('pocket: final weights: %s' % W)
