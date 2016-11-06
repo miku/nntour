@@ -130,5 +130,82 @@ Two nets with the same result - why care?
 - Net #1 has a higher dimensional weight space ($\mathbb{R}^9$ vs. $\mathbb{R}^5$)
 - Net #2 has less degrees of freedom and should generalize better.
 
-Why ist that? 
+Why is that? 
 - This architecture of the net has a direct effect on the optimization problem and the search space. 
+
+
+---
+The MNIST Dataset for benchmarking
+===
+<img src="images/mnist_100_digits.png" width="600"> 
+
+---
+Playing with MNIST and scikit-learn
+===
+~~~~{.python}
+from sklearn.neural_network import MLPClassifier
+from sklearn.datasets import fetch_mldata
+
+MNIST = fetch_mldata("MNIST original")
+split = 60000  # number of training examples
+X, y = MNIST.data / MNIST.data.max(), MNIST.target
+X_train, X_test = X[:split], X[split:]
+y_train, y_test = y[:split], y[split:]
+mlp = MLPClassifier(hidden_layer_sizes=(n_units, n_layers), 
+	max_iter=n_iterations, alpha=1e-4, solver=solver, 
+        verbose=10, tol=1e-4, random_state=1, 
+        learning_rate_init=alpha)
+mlp.fit(X_train, y_train)
+score = mlp.score(X_test, y_test)
+~~~~
+
+
+---
+Evaluating the parameter space
+===
+cartesian product of:
+~~~~{.python}
+hidden_units_per_layer = [2, 4, 6, 10, 15]
+hidden_layers = [1, 2, 3]
+learning_rate = [0.1, 0.2, 0.3]
+solver = ['lbgfs', 'sgd', 'adam']
+max_iter = [5, 10]
+~~~~
+
+$\rightarrow$ 270 runs
+
+~~~(.python)
+base_config = {'hidden_units_per_layer': 10.0, 
+		'iterations': 10.0, 
+        	'hidden_layers': 1.0, 
+            	'solver': 'sgd', 
+                'learning_rate': 0.1}
+~~~
+---
+Influence of the solver
+===
+![](images/solver_scores.png)
+
+
+---
+Number of hidden units per layer
+===
+![](images/hidden_units_MNIST.png)
+
+---
+Number of hidden layers
+===
+![](images/hidden_layers_MNIST.png)
+
+
+---
+Number of iterations
+===
+![](images/iterations_MNIST.png)
+
+
+---
+Influence of the learning rate
+===
+![](images/learning_rate_MNIST.png)
+
