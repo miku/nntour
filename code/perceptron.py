@@ -119,7 +119,7 @@ if __name__ == '__main__':
 	os.makedirs('images')
 
     # generate example data
-    X, y = generate_points(10)
+    X, y = generate_points(100)
 
     # check, if we have example data for both classes
     if len(set(y)) == 1:
