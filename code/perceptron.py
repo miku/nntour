@@ -9,39 +9,41 @@ Create gif:
     $ rm -f perceptron-00* perceptron-final*  && python perceptron.py && sh perceptron-gif.sh
 """
 
+from __future__ import print_function
 import matplotlib.pyplot as plt
 import numpy as np
 import random
 import seaborn
+import sys
+import tempfile
+import os
 
-def generate_points(N):
-    """ Separable points in the plane. Returns X (Nx3), y (1xN). """
-
-    # A hidden weight vector, which is unknown during learning.
-    W = np.random.rand(3)
-
-    X, y = [], []
+def generate_points(N, dim=2, xmin=-1, xmax=1):
+    """
+    Separable points dim dimensions. Returns X (N x dim + 1), y (1 x N).
+    """
+    W, X, y = np.random.rand(dim + 1), [], []
 
     for i in range(N):
-        x1, x2 = [random.uniform(-1, 1) for i in range(2)]
-        x = np.array([1, x1, x2])
+	r = [random.uniform(xmin, xmax) for i in range(dim)]
+	x = np.append([1], np.array(r))
         s = np.sign(W.T.dot(x))
         X.append(x)
         y.append(s)
 
     return X, y
 
-def export(filename, X, y, W, title=""):
+def drawimg(X, y, W, filename=None, title=''):
     """
-    Save data plus hyperplane to filname.
+    Save data plus boundary to filname.
     """
+    if not filename:
+	_, filename = tempfile.mkstemp(prefix='nntour-')
+
     plt.clf()
 
     pos = np.array([x[1:] for i, x in enumerate(X) if y[i] == 1])
     neg = np.array([x[1:] for i, x in enumerate(X) if y[i] == -1])
-
-    if len(pos) == 0 or len(neg) == 0:
-        raise ValueError('bad luck, only a single class')
 
     axes = plt.gca()
     axes.set_xlim([-2, 2])
@@ -56,70 +58,73 @@ def export(filename, X, y, W, title=""):
     plt.scatter(pos[:, 0], pos[:, 1], color='b')
     plt.scatter(neg[:, 0], neg[:, 1], color='r')
 
-    xline = np.linspace(-2, 2, 1000)
-    yline = (-W[0] - W[1] * xline) / W[2]
+    xb = np.linspace(-2, 2, 1000)
+    yb = (-W[0] - W[1] * xb) / W[2]
 
-    plt.plot(xline, yline, '-', color='k')
+    plt.plot(xb, yb, '-', color='k')
     plt.savefig(filename)
 
-def pla(X, y):
+def perceptron_learning_algorithm(X, y, directory='images'):
     """
     Perceptron learning algorithm.
     """
 
+    # initialize weights
     W = np.random.rand(3)
 
     def misclassfied_points(W):
-        """ For a given weight vector, return the set of misclassified points. """
+	"""
+	For a given weight vector, return a list of misclassified points.
+	"""
         misses = []
 
         for i, x in enumerate(X):
-            s = np.sign(W.T.dot(x))
-            # print(i, W)
-            if not s == y[i]:
+	    if np.sign(W.T.dot(x)) != y[i]:
                 misses.append((x, y[i]))
 
         return misses
 
+    # count number of iterations
     iteration = 0
     
     while True:
         misses = misclassfied_points(W)
-        print('misses: %d' % len(misses))
+	print('PLA %s, misses: %d' % (W, len(misses)), file=sys.stderr)
 
-        export("perceptron-%08d" % iteration, X, y, W, title='#%s' % iteration)
-
+	# all examples classified correctly
         if len(misses) == 0:
             break
 
+	# draw current state
+	filename = "images/perceptron-%08d" % iteration
+	title = '#%d' % iteration
+	drawimg(X, y, W, filename=filename, title=title)
+
+	# core idea: weight update
         point = random.choice(misses)
         W = W + point[1] * point[0]
+
         iteration += 1
 
-    export("perceptron-final.png", X, y, W, title='#%s FIN' % iteration)
+    # draw final state
+    filename = 'images/perceptron-END'
+    title = '#%d END' % iteration
+    drawimg(X, y, W, filename=filename, title=title)
 
     return W
 
 if __name__ == '__main__':
-    X, y = generate_points(100)
-    
-    pos = np.array([x[1:] for i, x in enumerate(X) if y[i] == 1])
-    neg = np.array([x[1:] for i, x in enumerate(X) if y[i] == -1])
+    # path to save images
+    if not os.path.exists('images'):
+	os.makedirs('images')
 
-    if len(pos) == 0 or len(neg) == 0:
-        raise ValueError('bad luck, only a single class')
+    # generate example data
+    X, y = generate_points(10)
 
-    # plt.scatter(pos[:, 0], pos[:, 1], color='b')
-    # plt.scatter(neg[:, 0], neg[:, 1], color='r')
-    # plt.savefig('perceptron-0.png')
+    # check, if we have example data for both classes
+    if len(set(y)) == 1:
+	raise ValueError('bad luck, sample data has only a single class')
 
-    W = pla(X, y)
+    W = perceptron_learning_algorithm(X, y)
 
-    # plt.scatter(pos[:, 0], pos[:, 1], color='b')
-    # plt.scatter(neg[:, 0], neg[:, 1], color='r')
-
-    # xline = np.linspace(-2, 2, 1000)
-    # yline = (-W[0] - W[1] * xline) / W[2]
-
-    # plt.plot(xline, yline, '--')
-    # plt.savefig('perceptron-1.png')
+    print('PLA: final weights: %s' % W)
