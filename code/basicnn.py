@@ -3,6 +3,8 @@
 
 """
 The essence.
+
+TODO: find a way to plot this.
 """
 
 import numpy as np
