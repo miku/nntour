@@ -3,19 +3,22 @@
 
 """
 A simple perceptron.
+
+Create gif:
+
+    $ rm -f perceptron-00* perceptron-final*  && python perceptron.py && sh perceptron-gif.sh
 """
 
 import matplotlib.pyplot as plt
-import random
 import numpy as np
+import random
+import seaborn
 
 def generate_points(N):
-    """ Separable points in the plane. """
+    """ Separable points in the plane. Returns X (Nx3), y (1xN). """
 
     # A hidden weight vector, which is unknown during learning.
-    W = np.random.rand(3, 1)
-    # W = np.array([0.7, 1.0, 0.1])
-    print(W)
+    W = np.random.rand(3)
 
     X, y = [], []
 
@@ -28,57 +31,76 @@ def generate_points(N):
 
     return X, y
 
-def dot(a, b):
-    """ Dot product. """
-    if not len(a) == len(b):
-        raise ValueError('vectors must be of same length, got %d and %d' % (len(a), len(b)))
-    return sum([a * b for a, b in zip(a, b)])
+def export(filename, X, y, W, title=""):
+    """
+    Save data plus hyperplane to filname.
+    """
+    plt.clf()
 
-def sign(x):
-    if x >= 0:
-        return 1
-    return 0
+    pos = np.array([x[1:] for i, x in enumerate(X) if y[i] == 1])
+    neg = np.array([x[1:] for i, x in enumerate(X) if y[i] == -1])
 
-def h(x, w, b):
-    """ Hypothesis. """
-    return sign(dot(x, w) + b)
+    if len(pos) == 0 or len(neg) == 0:
+        raise ValueError('bad luck, only a single class')
+
+    axes = plt.gca()
+    axes.set_xlim([-2, 2])
+    axes.set_ylim([-2, 2])
+
+    axes.get_xaxis().set_visible(False)
+    axes.get_yaxis().set_visible(False)
+
+    plt.title(title)
+    plt.autoscale(enable=False)
+
+    plt.scatter(pos[:, 0], pos[:, 1], color='b')
+    plt.scatter(neg[:, 0], neg[:, 1], color='r')
+
+    xline = np.linspace(-2, 2, 1000)
+    yline = (-W[0] - W[1] * xline) / W[2]
+
+    plt.plot(xline, yline, '-', color='k')
+    plt.savefig(filename)
 
 def pla(X, y):
     """
-    Given a dataset, return model.
+    Perceptron learning algorithm.
     """
-    # initialize model
-    weights, bias = [0 for _ in X[0]], 0
 
-    for i, x in enumerate(X):
-        yhat = h(x, weights, bias)
-        for j, w in enumerate(weights):
-            weights[j] = weights[j] + (y[i] - yhat) * x[j]
+    W = np.random.rand(3)
 
-    return weights, bias
+    def misclassfied_points(W):
+        """ For a given weight vector, return the set of misclassified points. """
+        misses = []
+
+        for i, x in enumerate(X):
+            s = np.sign(W.T.dot(x))
+            # print(i, W)
+            if not s == y[i]:
+                misses.append((x, y[i]))
+
+        return misses
+
+    iteration = 0
+    
+    while True:
+        misses = misclassfied_points(W)
+        print('misses: %d' % len(misses))
+
+        export("perceptron-%08d" % iteration, X, y, W, title='#%s' % iteration)
+
+        if len(misses) == 0:
+            break
+
+        point = random.choice(misses)
+        W = W + point[1] * point[0]
+        iteration += 1
+
+    export("perceptron-final.png", X, y, W, title='#%s FIN' % iteration)
+
+    return W
 
 if __name__ == '__main__':
-    # # measurements
-    # X = [
-    #     [0.5, 1.0, 0.2],
-    #     [0.7, 1.0, 0.3],
-    #     [0.2, 0.5, 0.3],
-    #     [0.4, 0.6, 0.2],
-    # ]
-
-    # # measurement class
-    # y = [0, 0, 1, 1]
-
-    # # weight of the model
-    # W = [0.1, 0.1, 0.1]
-    # b = 0.1
-
-    # W, b = pla(X, y)
-    
-    # for i, x in enumerate(X):
-    #     yhat = h(x, W, b)
-    #     print(yhat, y[i])
-
     X, y = generate_points(100)
     
     pos = np.array([x[1:] for i, x in enumerate(X) if y[i] == 1])
@@ -87,6 +109,17 @@ if __name__ == '__main__':
     if len(pos) == 0 or len(neg) == 0:
         raise ValueError('bad luck, only a single class')
 
-    plt.scatter(pos[:, 0], pos[:, 1], color='b')
-    plt.scatter(neg[:, 0], neg[:, 1], color='r')
-    plt.savefig('perceptron-0.png')
+    # plt.scatter(pos[:, 0], pos[:, 1], color='b')
+    # plt.scatter(neg[:, 0], neg[:, 1], color='r')
+    # plt.savefig('perceptron-0.png')
+
+    W = pla(X, y)
+
+    # plt.scatter(pos[:, 0], pos[:, 1], color='b')
+    # plt.scatter(neg[:, 0], neg[:, 1], color='r')
+
+    # xline = np.linspace(-2, 2, 1000)
+    # yline = (-W[0] - W[1] * xline) / W[2]
+
+    # plt.plot(xline, yline, '--')
+    # plt.savefig('perceptron-1.png')
