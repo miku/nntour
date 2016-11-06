@@ -65,8 +65,30 @@ pocket.gif: images/pocket-END.png
 		images/pocket-END.gif > pocket.gif
 
 
+
+# XOR-ish algorithm
+images/xorish-END.png:
+	python xorish.py
+
+xorish.gif: images/xorish-END.png
+	# convert to gif
+	for i in $$(find images -name "xorish-*png"); do [ ! -e "$${i%.png}.gif" ] && convert $$i $${i%.png}.gif; done
+	# convert final image to gif
+	convert images/xorish-END.png images/xorish-END.gif
+	# concat, repeat last frame ten times
+	gifsicle --colors 16 --delay=35 --loop images/xorish-00*.gif \
+		images/xorish-END.gif \
+		images/xorish-END.gif \
+		images/xorish-END.gif \
+		images/xorish-END.gif \
+		images/xorish-END.gif \
+		images/xorish-END.gif \
+		images/xorish-END.gif \
+		images/xorish-END.gif > xorish.gif
+
 clean:
 	rm -rf images
 	rm -f perceptron.gif
 	rm -f random.gif
 	rm -f pocket.gif
+	rm -f xorish.gif
