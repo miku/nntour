@@ -8,11 +8,11 @@ Martin, Notes
 Perceptron. Early model. Inspiration. Simple implementation. Simple algorithm:
 PLA. Pocketing.
 
-TODO:
+DONE:
 
-* python code (stdlib only)
-* gif of PLA
-* gif of Pocket PLA
+* simple PLA
+* random weights
+* pocket PLA
 
 ----
 
@@ -23,13 +23,16 @@ XOR for a non-pocket.
 
 Identify linearity as a problem. Does the sigmoid alone help?
 
-TODO:
+DONE:
 
-* gif of perceptron with logistic activation function
+* xor failure of PLA, even with pocket
+* an NN can deal with XOR
 
 ----
 
 15 min.
+
+TODO:
 
 Other implementations:
 
@@ -37,6 +40,10 @@ Other implementations:
 * sklearn (0.18 and later): MLPerceptron.
 * tensorflow: Graph model.
 * keras: Plug-n-Play.
+
+----
+
+In Total:
 
 About 25 min.
 
@@ -57,7 +64,7 @@ like in Yaser et. al. (2012), show:
 
 ----
 
-Another gif idea: Show, how the weight are become like tempates over the
+Another gif idea: Show, how the weight are become like templates over the
 course of learning the weights.
 
 * like in https://www.youtube.com/watch?v=hAeos2TocJ8?t=40m30s
