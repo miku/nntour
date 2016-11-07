@@ -37,58 +37,35 @@ if __name__ == '__main__':
     y_train, y_test = y[:split], y[split:]
 
     parameters = {
-        'hidden_layer_sizes': ((1,), (2,), (5,), (2, 2), (10,), (100,)),
-        # 'hidden_layer_sizes': ((1,)),
+        'hidden_layer_sizes': ((1,), (2,), (5,), (2, 2), (10,), (50,), (50, 50), (100,)),
         'activation': ('relu', 'tanh'),
+
+        # 'hidden_layer_sizes': ((1,)),
         # 'activation': ('relu',),
     }
 
     mlp = MLPClassifier()
     clf = GridSearchCV(mlp, parameters, verbose=10, n_jobs=multiprocessing.cpu_count(), cv=3)
 
+    # run parameter search
     clf.fit(X_train, y_train)
 
     print(json.dumps(clf.cv_results_, cls=SeqEncoder))
 
-# Fitting 3 folds for each of 6 candidates, totalling 18 fits
-# [CV] activation=relu, hidden_layer_sizes=(1,) ........................
-# [CV] activation=relu, hidden_layer_sizes=(1,) ........................
-# [CV] activation=relu, hidden_layer_sizes=(1,) ........................
-# [CV] activation=relu, hidden_layer_sizes=(10,) .......................
-# [CV]  activation=relu, hidden_layer_sizes=(1,), score=0.371419 -   0.1s
-# [CV] activation=relu, hidden_layer_sizes=(10,) .......................
-# [CV]  activation=relu, hidden_layer_sizes=(10,), score=0.927065 -   0.1s
-# [CV] activation=relu, hidden_layer_sizes=(10,) .......................
-# [CV]  activation=relu, hidden_layer_sizes=(1,), score=0.382357 -   0.1s
-# [CV] activation=relu, hidden_layer_sizes=(100,) ......................
-# [CV]  activation=relu, hidden_layer_sizes=(1,), score=0.368126 -   0.1s
-# [CV] activation=relu, hidden_layer_sizes=(100,) ......................
-# [CV]  activation=relu, hidden_layer_sizes=(10,), score=0.927296 -   0.2s
-# [Parallel(n_jobs=4)]: Done   5 tasks      | elapsed:  2.4min
-# [CV] activation=relu, hidden_layer_sizes=(100,) ......................
-# [CV]  activation=relu, hidden_layer_sizes=(10,), score=0.930840 -   0.1s
-# [CV] activation=tanh, hidden_layer_sizes=(1,) ........................
-# [CV]  activation=relu, hidden_layer_sizes=(100,), score=0.972206 -   0.4s
-# [CV] activation=tanh, hidden_layer_sizes=(1,) ........................
-# [CV]  activation=relu, hidden_layer_sizes=(100,), score=0.969298 -   0.3s
-# [CV] activation=tanh, hidden_layer_sizes=(1,) ........................
-# [CV]  activation=relu, hidden_layer_sizes=(100,), score=0.972246 -   0.2s
-# [CV] activation=tanh, hidden_layer_sizes=(10,) .......................
-# [CV]  activation=tanh, hidden_layer_sizes=(1,), score=0.434263 -   0.1s
-# [Parallel(n_jobs=4)]: Done  10 tasks      | elapsed:  5.0min
-# [CV] activation=tanh, hidden_layer_sizes=(10,) .......................
-# [CV]  activation=tanh, hidden_layer_sizes=(1,), score=0.365218 -   0.0s
-# [CV] activation=tanh, hidden_layer_sizes=(10,) .......................
-# [CV]  activation=tanh, hidden_layer_sizes=(1,), score=0.415312 -   0.0s
-# [CV] activation=tanh, hidden_layer_sizes=(100,) ......................
-# [CV]  activation=tanh, hidden_layer_sizes=(10,), score=0.923665 -   0.1s
-# [Parallel(n_jobs=4)]: Done  13 out of  18 | elapsed:  6.3min remaining:  2.4min
-# [CV] activation=tanh, hidden_layer_sizes=(100,) ......................
-# [CV]  activation=tanh, hidden_layer_sizes=(10,), score=0.915696 -   0.1s
-# [CV] activation=tanh, hidden_layer_sizes=(100,) ......................
-# [CV]  activation=tanh, hidden_layer_sizes=(10,), score=0.921638 -   0.2s
-# [Parallel(n_jobs=4)]: Done  15 out of  18 | elapsed:  7.4min remaining:  1.5min
-# [CV]  activation=tanh, hidden_layer_sizes=(100,), score=0.972905 -   0.4s
-# [CV]  activation=tanh, hidden_layer_sizes=(100,), score=0.969548 -   0.3s
-# [CV]  activation=tanh, hidden_layer_sizes=(100,), score=0.969495 -   0.2s
-# [Parallel(n_jobs=4)]: Done  18 out of  18 | elapsed:  9.3min finished
+    # df = pd.DataFrame(clf.cv_results_)
+    # cols = [c for c in df.columns if 'param_' in c] + ["mean_test_score"]
+    # print(df[cols].sort_values(by="mean_test_score"))
+
+#    param_activation param_hidden_layer_sizes  mean_test_score
+# 0              relu                      [1]         0.387100
+# 6              tanh                      [1]         0.391717
+# 3              relu                   [2, 2]         0.484400
+# 1              relu                      [2]         0.566933
+# 9              tanh                   [2, 2]         0.624783
+# 7              tanh                      [2]         0.664400
+# 8              tanh                      [5]         0.880667
+# 2              relu                      [5]         0.893133
+# 10             tanh                     [10]         0.922533
+# 4              relu                     [10]         0.928367
+# 5              relu                    [100]         0.970050
+# 11             tanh                    [100]         0.971133
