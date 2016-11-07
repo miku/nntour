@@ -33,7 +33,7 @@ if __name__ == '__main__':
         s1 += l1.T.dot(l2_delta)
         s0 += X.T.dot(l1_delta)
 
-    # test weights
+    # test our model on unseen data
     test_data = np.array([
         [0, 0, 0],
         [0, 0, 1],
@@ -43,6 +43,8 @@ if __name__ == '__main__':
         [1, 0, 1],
         [1, 1, 0],
         [1, 1, 1]])
+
+    # activations for all examples at once
     l1 = 1 / (1 + np.exp(-np.dot(test_data, s0)))
     l2 = 1 / (1 + np.exp(-np.dot(l1, s1)))
 
