@@ -21,7 +21,7 @@ class SeqEncoder(json.JSONEncoder):
     def default(self, obj):
         if isinstance(obj, set):
             return list(obj)
-        if isinstance(obj, np.array):
+        if isinstance(obj, np.ndarray):
             return obj.tolist()
         return json.JSONEncoder.default(self, obj)
 
@@ -36,14 +36,14 @@ if __name__ == '__main__':
     y_train, y_test = y[:split], y[split:]
 
     parameters = {
-        # 'hidden_layer_sizes': ((1,), (10,), (100,)),
-        'hidden_layer_sizes': ((1,)),
-        # 'activation': ('relu', 'tanh'),
-        'activation': ('relu',),
+        'hidden_layer_sizes': ((1,), (2,), (5,), (2, 2), (10,), (100,)),
+        # 'hidden_layer_sizes': ((1,)),
+        'activation': ('relu', 'tanh'),
+        # 'activation': ('relu',),
     }
 
     mlp = MLPClassifier()
-    clf = GridSearchCV(mlp, parameters, verbose=10, n_jobs=4)
+    clf = GridSearchCV(mlp, parameters, verbose=10, n_jobs=4, cv=3)
 
     clf.fit(X_train, y_train)
 
