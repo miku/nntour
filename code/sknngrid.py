@@ -9,8 +9,9 @@ from sklearn.datasets import fetch_mldata
 from sklearn.model_selection import GridSearchCV
 from sklearn.neural_network import MLPClassifier
 import json
-import numpy as np
 import multiprocessing
+import numpy as np
+import pandas as pd
 
 class SeqEncoder(json.JSONEncoder):
     """
