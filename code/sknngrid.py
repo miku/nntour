@@ -10,6 +10,7 @@ from sklearn.model_selection import GridSearchCV
 from sklearn.neural_network import MLPClassifier
 import json
 import numpy as np
+import multiprocessing
 
 class SeqEncoder(json.JSONEncoder):
     """
@@ -43,7 +44,7 @@ if __name__ == '__main__':
     }
 
     mlp = MLPClassifier()
-    clf = GridSearchCV(mlp, parameters, verbose=10, n_jobs=4, cv=3)
+    clf = GridSearchCV(mlp, parameters, verbose=10, n_jobs=multiprocessing.cpu_count(), cv=3)
 
     clf.fit(X_train, y_train)
 
