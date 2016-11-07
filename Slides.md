@@ -2,29 +2,12 @@ Neuronale Netze - Eine kurze Einführung mit Implementierungen in Python
 ===
 Philipp Hanemann, Martin Czygan
 
----
-
-Hello World
-========
-
-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
 ----
+The origin - a linear classifier
+====
+<img src="images/linear_classifier.png" width="400"> 
 
-![](images/Escape_from_the_local_minimum.jpg)
-
-----
-
-| A | B | A AND B |   |   |
-|---|---|---------|---|---|
-|  1 | 2  | 3        | 5  | 6  |
-|  1 | 2  | 3        | 4  | 5  |
-|  7 |7   | 7        |  6 |  5 |
+$H_i = <x,w> = \sum\limits_j{x_j w_j} + \theta$ 
 
 ----
 Idea of a perceptron as classifier
@@ -57,6 +40,7 @@ $\Rightarrow$ optimization theory
 - one efficient way for solving the problem is the use of backpropagation (error is "propagated" backwards through the grid)
 
 ---
+
 Representing Boolean Algebra as Classifiers
 =====
 | $x_1$ | $x_2$ | AND | OR | XOR | 
@@ -94,7 +78,8 @@ XOR is not linearly separable
 ---
 XOR can be represented by a combination of two mappings
 ===
-|point| $x_1$ | $x_2$ | $($AND | $\lor$ | NOR $)$ | XOR|
+XOR = NOR (AND, NOR)  
+|point| $x_1$ | $x_2$ | $($AND | $NOR$ | NOR $)$ | XOR|
 |----|---|---|-----|----|-----|-|
 | a  | 0 | 0 		|  0  | 0  | 1   | 0 | 
 | b  | 0 | 1 		|  0  | 1  | 0   | 1 |
