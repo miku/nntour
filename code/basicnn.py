@@ -2,12 +2,11 @@
 # coding: utf-8
 
 """
-The essence.
-
-TODO: find a way to plot this.
+Basic network.
 """
 
 import numpy as np
+from tabulate import tabulate
 
 if __name__ == '__main__':
     X = np.array([
@@ -22,9 +21,10 @@ if __name__ == '__main__':
     # output layer
     s1 = np.random.random((4, 1))
 
+    # 10000 x FP, BP
     for j in range(10000):
         # sigmoid activation
-        l1 = 1 / (1 + np.exp(-np.dot(X, s0)))
+        l1 = 1 / (1 + np.exp(-np.dot( X, s0)))
         l2 = 1 / (1 + np.exp(-np.dot(l1, s1)))
 
         # loss function
@@ -50,7 +50,9 @@ if __name__ == '__main__':
     l1 = 1 / (1 + np.exp(-np.dot(test_data, s0)))
     l2 = 1 / (1 + np.exp(-np.dot(l1, s1)))
 
-    print(np.concatenate((test_data.astype(np.int), np.around(l2, decimals=2)), axis=1))
+    table = tabulate(np.concatenate((test_data.astype(np.int), np.around(l2, decimals=2)), axis=1),
+                     headers=['x', 'x', 'x', 'yhat'], tablefmt='simple')
+    print(table)
 
 # Neural net can approximate XOR of first and second value.
 # There is still uncertainty. The training set is small.
