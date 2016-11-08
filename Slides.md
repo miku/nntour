@@ -265,3 +265,64 @@ Enter: an activation function.
 
 > http://stackoverflow.com/q/9782071
 
+Also: Feed-forward, Backpropagation.
+
+----
+
+mnistimages.py
+--------------
+
+Examples from the dataset.
+
+----
+
+hellosklearn.py
+---------------
+
+scikit-learn makes working with multi-layer perceptrons easy.
+
+----
+
+sknngrid.py
+-----------
+
+How to find a suitable architecture? Grid search to the rescue.
+
+Similar settings in modern neural nets with dozens of layers.
+
+> In Deep Learning, Architecture Engineering is the New Feature Engineering. (https://is.gd/osMZaZ)
+
+----
+
+hellotf.py
+----------
+
+Tensorflow, released almost exaclty a year ago by Google.
+
+> Used in commercial Google products, such as speech recognition, Gmail,
+> Google Photos, and search [...].
+
+----
+
+hellokeras.py
+-------------
+
+Keras is a duplo layer upon deep learning library lego.
+
+> Keras is a high-level neural networks library, written in Python and capable of running on top of either TensorFlow or Theano. It was developed with a focus on enabling fast experimentation.
+
+----
+
+Wrap-up
+-------
+
+Things not covered:
+
+* more theory
+* getting and preparing data
+* problem formulation
+* model evaluation
+
+But hopefully showed that getting started is not too hard.
+
+Thanks!
