@@ -4,7 +4,9 @@
 """
 Example with keras.
 
-Suitable card to go with large models: https://www.amazon.de/dp/B00TWFEIWA
+Suitable card to go with larger models[1]: https://www.amazon.de/dp/B00TWFEIWA
+
+[1] https://github.com/fchollet/keras/blob/master/examples/mnist_mlp.py
 """
 
 from keras.models import Sequential
