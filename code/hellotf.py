@@ -38,7 +38,9 @@ import os
 import sys
 import tempfile
 
-path = os.path.join(tempfile.gettempdir(), "mnist-data")
+pwd = os.path.abspath(os.path.dirname(__file__))
+
+path = os.path.join(pwd, "tf-mnist-data")
 print(path, file=sys.stderr)
 
 from tensorflow.examples.tutorials.mnist import input_data
