@@ -3,6 +3,8 @@
 
 """
 Example with keras.
+
+Suitable card to go with large models: https://www.amazon.de/dp/B00TWFEIWA
 """
 
 from keras.models import Sequential
