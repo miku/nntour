@@ -194,3 +194,42 @@ Influence of the learning rate
 ===
 ![](images/learning_rate_MNIST.png)
 
+
+
+----
+
+Some Code
+=========
+
+Roadmap:
+
+* perceptron.py
+* randomweights.py
+* pocket.py
+* xorish.py
+* basicnn.py
+
+* mnistimages.py
+
+* hellosklearn.py
+* sknngrid.py
+* hellotf.py
+* hellokeras.py
+
+----
+
+perceptron.py
+-------------
+
+A simple perceptron plus lots of boilerplate for gif.
+
+* simple update rule
+* relatively fast, given the weight space is infinite
+* works on separable data
+
+----
+
+randomweights.py
+----------------
+
+----

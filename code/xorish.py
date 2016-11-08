@@ -6,7 +6,7 @@ A simple perceptron.
 
 Create gif:
 
-    $ make pocket.gif
+    $ make xorish.gif
 """
 
 from __future__ import print_function
