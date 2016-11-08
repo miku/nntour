@@ -53,7 +53,7 @@ if __name__ == '__main__':
 
     print(json.dumps(clf.cv_results_, cls=SeqEncoder))
 
-    # df = pd.DataFrame(clf.cv_results_)
+    # df = pd.DataFrame(clf.cv_results_) # df = pd.read_json("sknngrid.json")
     # cols = [c for c in df.columns if 'param_' in c] + ["mean_test_score"]
     # print(df[cols].sort_values(by="mean_test_score"))
 
