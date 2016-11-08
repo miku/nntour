@@ -2,30 +2,12 @@
 # coding: utf-8
 
 """
-From https://github.com/aymericdamien/TensorFlow-Examples/blob/master/examples/3_NeuralNetworks/multilayer_perceptron.py
+Tensorflow, multilayer perceptron.
 
-    $ time python hellotf.py
-    Epoch: 0001, cost=168.040437403
-    Epoch: 0002, cost=42.922752741
-    Epoch: 0003, cost=26.790772676
-    Epoch: 0004, cost=18.768443520
-    Epoch: 0005, cost=13.713787636
-    Epoch: 0006, cost=10.068921963
-    Epoch: 0007, cost=7.535719216
-    Epoch: 0008, cost=5.620109553
-    Epoch: 0009, cost=4.219670208
-    Epoch: 0010, cost=3.242410429
-    Epoch: 0011, cost=2.453972932
-    Epoch: 0012, cost=1.817244119
-    Epoch: 0013, cost=1.429710297
-    Epoch: 0014, cost=1.092236129
-    Epoch: 0015, cost=0.916826690
-    optimization done.
-    Accuracy:  0.9446
+Visualize with tensorboard:
 
-    real    1m16.055s
-    user    3m0.125s
-    sys     0m9.884s
+    $ tensorboard --logdir tf-summary
+
 """
 
 from __future__ import print_function
@@ -123,3 +105,28 @@ with tf.Session() as sess:
 
     accuracy = tf.reduce_mean(tf.cast(correct_prediction, "float"))
     print("Accuracy: ", accuracy.eval({x: mnist.test.images, y: mnist.test.labels}))
+
+# From https://github.com/aymericdamien/TensorFlow-Examples/blob/master/examples/3_NeuralNetworks/multilayer_perceptron.py
+
+#     $ time python hellotf.py
+#     Epoch: 0001, cost=168.040437403
+#     Epoch: 0002, cost=42.922752741
+#     Epoch: 0003, cost=26.790772676
+#     Epoch: 0004, cost=18.768443520
+#     Epoch: 0005, cost=13.713787636
+#     Epoch: 0006, cost=10.068921963
+#     Epoch: 0007, cost=7.535719216
+#     Epoch: 0008, cost=5.620109553
+#     Epoch: 0009, cost=4.219670208
+#     Epoch: 0010, cost=3.242410429
+#     Epoch: 0011, cost=2.453972932
+#     Epoch: 0012, cost=1.817244119
+#     Epoch: 0013, cost=1.429710297
+#     Epoch: 0014, cost=1.092236129
+#     Epoch: 0015, cost=0.916826690
+#     optimization done.
+#     Accuracy:  0.9446
+
+#     real    1m16.055s
+#     user    3m0.125s
+#     sys     0m9.884s
