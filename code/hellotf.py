@@ -5,11 +5,6 @@
 From https://github.com/aymericdamien/TensorFlow-Examples/blob/master/examples/3_NeuralNetworks/multilayer_perceptron.py
 
     $ time python hellotf.py
-    /var/folders/cj/hpk8c18n19n3x56_8bk5wb0w0000gn/T/mnist-data
-    Extracting /var/folders/cj/hpk8c18n19n3x56_8bk5wb0w0000gn/T/mnist-data/train-images-idx3-ubyte.gz
-    Extracting /var/folders/cj/hpk8c18n19n3x56_8bk5wb0w0000gn/T/mnist-data/train-labels-idx1-ubyte.gz
-    Extracting /var/folders/cj/hpk8c18n19n3x56_8bk5wb0w0000gn/T/mnist-data/t10k-images-idx3-ubyte.gz
-    Extracting /var/folders/cj/hpk8c18n19n3x56_8bk5wb0w0000gn/T/mnist-data/t10k-labels-idx1-ubyte.gz
     Epoch: 0001, cost=168.040437403
     Epoch: 0002, cost=42.922752741
     Epoch: 0003, cost=26.790772676
@@ -38,6 +33,7 @@ import os
 import sys
 import tempfile
 
+# download MNIST dataset
 pwd = os.path.abspath(os.path.dirname(__file__))
 
 path = os.path.join(pwd, "tf-mnist-data")
@@ -103,6 +99,8 @@ init = tf.initialize_all_variables()
 
 with tf.Session() as sess:
     sess.run(init)
+
+    writer = tf.train.SummaryWriter("tf-summary", sess.graph)
 
     for epoch in range(training_epochs):
         avg_cost = 0.0
