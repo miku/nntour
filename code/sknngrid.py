@@ -3,6 +3,10 @@
 
 """
 Grid search with NN.
+
+Fitting 3 folds for each of 16 candidates, totalling 48 fits on an 8-core
+Xeon(R) CPU E5-2609 0 @ 2.40GHz takes about 24 minutes.
+
 """
 
 from sklearn.datasets import fetch_mldata
@@ -58,15 +62,19 @@ if __name__ == '__main__':
     # print(df[cols].sort_values(by="mean_test_score"))
 
 #    param_activation param_hidden_layer_sizes  mean_test_score
-# 0              relu                      [1]         0.387100
-# 6              tanh                      [1]         0.391717
-# 3              relu                   [2, 2]         0.484400
-# 1              relu                      [2]         0.566933
-# 9              tanh                   [2, 2]         0.624783
-# 7              tanh                      [2]         0.664400
-# 8              tanh                      [5]         0.880667
-# 2              relu                      [5]         0.893133
-# 10             tanh                     [10]         0.922533
-# 4              relu                     [10]         0.928367
-# 5              relu                    [100]         0.970050
-# 11             tanh                    [100]         0.971133
+# 8              tanh                      [1]         0.377567
+# 0              relu                      [1]         0.425683
+# 3              relu                   [2, 2]         0.629633
+# 11             tanh                   [2, 2]         0.670550
+# 9              tanh                      [2]         0.672917
+# 1              relu                      [2]         0.682650
+# 10             tanh                      [5]         0.886200
+# 2              relu                      [5]         0.892267
+# 12             tanh                     [10]         0.923050
+# 4              relu                     [10]         0.929633
+# 14             tanh                 [50, 50]         0.962433
+# 13             tanh                     [50]         0.962500
+# 6              relu                 [50, 50]         0.964950
+# 5              relu                     [50]         0.965833
+# 15             tanh                    [100]         0.970833
+# 7              relu                    [100]         0.972000
