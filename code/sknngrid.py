@@ -7,6 +7,7 @@ Grid search with NN.
 Fitting 3 folds for each of 16 candidates, totalling 48 fits on an 8-core
 Xeon(R) CPU E5-2609 0 @ 2.40GHz takes about 24 minutes.
 
+Dataset is MNIST, the Drosophila of machine learning.
 """
 
 from sklearn.datasets import fetch_mldata
@@ -21,8 +22,8 @@ class SeqEncoder(json.JSONEncoder):
     """
     Helper to encode additional types.
     
-    > To use a custom JSONDecoder subclass, specify it with the cls kwarg;
-    > otherwise JSONDecoder is used. https://is.gd/X1GZXX
+    > To use a custom `JSONDecoder` subclass, specify it with the `cls` kwarg;
+    > otherwise `JSONDecoder` is used. https://is.gd/X1GZXX
     """
     def default(self, obj):
         if isinstance(obj, set):
