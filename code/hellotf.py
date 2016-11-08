@@ -8,6 +8,7 @@ Visualize with tensorboard:
 
     $ tensorboard --logdir tf-summary
 
+More tensorflow: http://delivery.acm.org/10.1145/2960000/2951024/p56-saxena.pdf
 """
 
 from __future__ import print_function
