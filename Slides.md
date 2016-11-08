@@ -45,6 +45,10 @@ $\Rightarrow$ optimization theory
 
 ---
 
+This page is intentionally left blank.
+
+---
+
 Representing Boolean Algebra as Classifiers
 =====
 | $x_1$ | $x_2$ | AND | OR | XOR | 
