@@ -5,5 +5,6 @@
 Example with keras.
 """
 
-if __name__ == '__main__':
-    pass
+from keras.models import Sequential
+
+model = Sequential()
