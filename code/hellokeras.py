@@ -6,7 +6,12 @@ Example with keras.
 
 Suitable card to go with larger models[1]: https://www.amazon.de/dp/B00TWFEIWA
 
+> Using the GPU, I’ll show that we can train deep belief networks up to 15x
+> faster than using just the CPU, cutting training time down from hours to
+> minutes. [2]
+
 [1] https://github.com/fchollet/keras/blob/master/examples/mnist_mlp.py
+[2] https://blog.dominodatalab.com/gpu-computing-and-deep-learning/
 """
 
 from keras.models import Sequential
