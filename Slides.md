@@ -5,9 +5,13 @@ Philipp Hanemann, Martin Czygan
 ----
 The origin - a linear classifier
 ====
-<img src="images/linear_classifier.png" width="400"> 
 
-$H_i = <x,w> = \sum\limits_j{x_j w_j} + \theta$ 
+
+![](images/linear_classifier.png)
+
+$H_i = <x,w> = \sum\limits_j{x_j w_j} + \theta$
+
+
 
 ----
 Idea of a perceptron as classifier
@@ -53,27 +57,27 @@ Representing Boolean Algebra as Classifiers
 ---
 AND is linearly seperable 
 ===
-<img src="images/AND.jpg" width="600"> 
+<img src="images/AND.JPG" width="600"> 
 
 ---
 One possible AND perceptron
 ===
-<img src="images/AND_perceptron.jpg" width="600"> 
+<img src="images/AND_perceptron.JPG" width="600"> 
 
 ---
 OR(/NOR) is linearly seperable
 ===
-<img src="images/OR.jpg" width="600"> 
+<img src="images/OR.JPG" width="600"> 
 
 ---
 One possible AND perceptron
 ===
-<img src="images/OR_perceptron.jpg" width="600"> 
+<img src="images/OR_perceptron.JPG" width="600"> 
 
 ---
 XOR is not linearly separable
 ===
-<img src="images/XOR.jpg" width="600"> 
+<img src="images/XOR.JPG" width="600"> 
 
 ---
 XOR can be represented by a combination of two mappings
@@ -89,19 +93,19 @@ XOR = NOR (AND, NOR)
 ---
 The extra mapping can be visualized
 ===
-<img src="images/XOR_map.jpg" width="600"> 
+<img src="images/XOR_map.JPG" width="600"> 
 
 ---
 One possible XOR Net (#1)
 ===
 The ones are fixed input (bias) units
-<img src="images/XOR_perceptron_1.jpg" width="600"> 
+<img src="images/XOR_perceptron_1.JPG" width="600"> 
 
 ---
 One alternative XOR Net (#2)
 ===
 The number within the perceptron represents the inherent bias unit/or a translational shift when the unit jumps. 
-<img src="images/XOR_perceptron_2.jpg" width="600"> 
+<img src="images/XOR_perceptron_2.JPG" width="600"> 
 
 ---
 Two nets with the same result - why care?
@@ -198,23 +202,15 @@ Influence of the learning rate
 
 ----
 
-Some Code
-=========
+Roadmap
+=======
 
-Roadmap:
 
-* perceptron.py
-* randomweights.py
-* pocket.py
-* xorish.py
-* basicnn.py
-
-* mnistimages.py
-
-* hellosklearn.py
-* sknngrid.py
-* hellotf.py
-* hellokeras.py
+* Basic: perceptron.py, randomweights.py, pocket.py, xorish.py, basicnn.py
+* Data set: mnistimages.py
+* scikit-learn: hellosklearn.py, sknngrid.py
+* Tensorflow: hellotf.py
+* Keras: hellokeras.py
 
 ----
 
@@ -227,9 +223,45 @@ A simple perceptron plus lots of boilerplate for gif.
 * relatively fast, given the weight space is infinite
 * works on separable data
 
+The algorithm is short.
+
+```
+misses = misclassfied_points(W)
+...
+point = random.choice(misses)
+W = W + point[1] * point[0]
+```
+
 ----
 
 randomweights.py
 ----------------
 
+Gets worse with more dimensions.
+
 ----
+
+pocket.py
+---------
+
+Like perceptron, but works on non-separable data.
+
+----
+
+xorish.py
+---------
+
+The writing was on the wall. Neither pocket, not perceptron will
+do too well on such data.
+
+----
+
+basicnn.py
+----------
+
+Enter: an activation function.
+
+> The purpose of the activation function is to introduce non-linearity into the network.
+
+> http://stackoverflow.com/q/9782071
+

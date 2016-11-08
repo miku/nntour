@@ -17,7 +17,9 @@ if __name__ == '__main__':
         [1, 1, 1]]) # 0
     y = np.array([[0, 1, 1, 0]]).T
 
+    # 3-node hidden layer
     s0 = np.random.random((3, 4))
+    # output layer
     s1 = np.random.random((4, 1))
 
     for j in range(10000):
@@ -25,7 +27,7 @@ if __name__ == '__main__':
         l1 = 1 / (1 + np.exp(-np.dot(X, s0)))
         l2 = 1 / (1 + np.exp(-np.dot(l1, s1)))
 
-        # logistic regression loss function
+        # loss function
         l2_delta = (y - l2) * (l2 * (1 - l2))
         l1_delta = l2_delta.dot(s1.T) * (l1 * (1 - l1))
 
