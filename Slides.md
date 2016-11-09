@@ -6,10 +6,15 @@ Philipp Hanemann, Martin Czygan
 The origin - a linear classifier
 ====
 
-
 ![](images/linear_classifier.png)
 
-$H_i = <x,w> = \sum\limits_j{x_j w_j} + \theta$
+$H = <x,w> = \sum\limits_j{x_j w_j} + \theta$
+with:
+$H:$ Hypothesis/Model
+$x \in \mathbb{R}^j:$ input vector
+$w \in \mathbb{R}^j:$ weight vector
+$\theta \in \mathbb{R}:$ shift
+
 
 
 
@@ -22,9 +27,9 @@ Activation function can vary e.g.:
 
 
 $$
-o_j=
+\varphi(net_j)=
 \begin{cases}
-1, \text{ if } net_j \geq 0 \\
+1, \text{ if }  net_j - \theta_j\geq 0 \\
 0, \text{ else}
 \end{cases}
 $$
@@ -41,7 +46,7 @@ with:
 
 e.g. squared error as in linear regression
 $\Rightarrow$ optimization theory 
-- one efficient way for solving the problem is the use of backpropagation (error is "propagated" backwards through the grid)
+- one efficient way for solving the problem is the use of backpropagation (error is "propagated" backwards through the network/grid)
 
 ---
 
@@ -105,6 +110,7 @@ The ones are fixed input (bias) units
 One alternative XOR Net (#2)
 ===
 The number within the perceptron represents the inherent bias unit/or a translational shift when the unit jumps. 
+(The number in the perceptron consitutes the threshold.)
 <img src="images/XOR_perceptron_2.JPG" width="600"> 
 
 ---
