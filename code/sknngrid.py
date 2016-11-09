@@ -43,11 +43,11 @@ if __name__ == '__main__':
     y_train, y_test = y[:split], y[split:]
 
     parameters = {
-        'hidden_layer_sizes': ((1,), (2,), (5,), (2, 2), (10,), (50,), (50, 50), (100,)),
-        'activation': ('relu', 'tanh'),
+        # 'hidden_layer_sizes': ((1,), (2,), (5,), (2, 2), (10,), (50,), (50, 50), (100,)),
+        # 'activation': ('relu', 'tanh'),
 
-        # 'hidden_layer_sizes': ((1,)),
-        # 'activation': ('relu',),
+        'hidden_layer_sizes': ((1,)),
+        'activation': ('relu',),
     }
 
     mlp = MLPClassifier()
@@ -61,6 +61,8 @@ if __name__ == '__main__':
     # df = pd.DataFrame(clf.cv_results_) # df = pd.read_json("sknngrid.json")
     # cols = [c for c in df.columns if 'param_' in c] + ["mean_test_score"]
     # print(df[cols].sort_values(by="mean_test_score"))
+
+# TODO: Why is training [100] faster than [50]?
 
 #    param_activation param_hidden_layer_sizes  mean_test_score
 # 8              tanh                      [1]         0.377567

@@ -20,7 +20,7 @@ if __name__ == '__main__':
 
     p = np.random.permutation(len(X))
 
-    # render first 1024 example
+    # render random 32 examples
     for i in range(1, 33):
         example = X[p[i]].reshape(28, 28)
         ax = fig.add_subplot(8, 4, i)

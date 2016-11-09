@@ -16,12 +16,13 @@ if __name__ == '__main__':
         [1, 1, 1]]) # 0
     y = np.array([[0, 1, 1, 0]]).T
 
-    # 3-node hidden layer
+    # 4-node hidden layer
     s0 = np.random.random((3, 4))
     # output layer
     s1 = np.random.random((4, 1))
 
     # 10000 x FP, BP
+    # TODO: numba.jit
     for j in range(10000):
         # sigmoid activation
         l1 = 1 / (1 + np.exp(-np.dot( X, s0)))
