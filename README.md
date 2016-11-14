@@ -248,3 +248,208 @@ but it is less certain in the case 0-1-0 and 1-0-0.
 
 Here, 0-1-0 is misclassfied (if we assume XOR) as 0 (0.16 rounded down).
 
+The complete code, since it's small.
+
+```python
+#!/usr/bin/env python
+# coding: utf-8
+
+"""
+Basic network.
+"""
+
+import numpy as np
+from tabulate import tabulate
+
+if __name__ == '__main__':
+    X = np.array([
+        [0, 0, 1],  # 0
+        [0, 1, 1],  # 1
+        [1, 0, 1],  # 1
+        [1, 1, 1]]) # 0
+    y = np.array([[0, 1, 1, 0]]).T
+
+    # 4-node hidden layer
+    s0 = np.random.random((3, 4))
+    # output layer
+    s1 = np.random.random((4, 1))
+
+    # 10000 x FP, BP
+    # TODO: numba.jit
+    for j in range(10000):
+        # sigmoid activation
+        l1 = 1 / (1 + np.exp(-np.dot( X, s0)))
+        l2 = 1 / (1 + np.exp(-np.dot(l1, s1)))
+
+        # loss function
+        l2_delta = (y - l2) * (l2 * (1 - l2))
+        l1_delta = l2_delta.dot(s1.T) * (l1 * (1 - l1))
+
+        # weight update
+        s1 += l1.T.dot(l2_delta)
+        s0 += X.T.dot(l1_delta)
+
+    # test our model on unseen data
+    test_data = np.array([
+        [0, 0, 0],
+        [0, 0, 1],
+        [0, 1, 0],
+        [0, 1, 1],
+        [1, 0, 0],
+        [1, 0, 1],
+        [1, 1, 0],
+        [1, 1, 1]])
+
+    # activations for all examples at once
+    l1 = 1 / (1 + np.exp(-np.dot(test_data, s0)))
+    l2 = 1 / (1 + np.exp(-np.dot(l1, s1)))
+
+    table = tabulate(np.concatenate((test_data.astype(np.int), np.around(l2, decimals=2)), axis=1),
+                     headers=['x', 'x', 'x', 'yhat'], tablefmt='simple')
+    print(table)
+
+# Neural net can approximate XOR of first and second value.
+# There is still uncertainty. The training set is small.
+
+# |-------- X ------|-- y -|
+#
+# [[ 0.    0.    0.    0.11]
+#  [ 0.    0.    1.    0.  ]
+#  [ 0.    1.    0.    0.99]
+#  [ 0.    1.    1.    0.98]
+#  [ 1.    0.    0.    0.99]
+#  [ 1.    0.    1.    0.98]
+#  [ 1.    1.    0.    0.02]
+#  [ 1.    1.    1.    0.02]]
+#  
+```
+
+Multi-layer perceptron with scikit-learn
+----------------------------------------
+
+Before we go on, we introducte the MNIST dataset. Handwritten digits. The
+drosophyla of machine learning tasks.
+
+Here are 32 samples of input images (28x28) from MNIST:
+
+![](https://raw.githubusercontent.com/miku/nntour/master/code/mnistimage.png?token=AADRyVdLR1KdvKbLRFN8F-rRhXMBGjKFks5YM1c3wA%3D%3D)
+
+
+With scikit-learn, setting up an architecture is done in the constructor. Here
+we use two hidden layers with 100 nodes each and stochastic gradient descent:
+
+```python
+    mlp = MLPClassifier(verbose=10,
+                        hidden_layer_sizes=(100, 100),
+                        max_iter=400, alpha=1e-4,
+                        solver='sgd',
+                        tol=1e-4,
+                        random_state=1,
+                        learning_rate_init=.1)
+```
+
+The model is then fitted to the training data and evaluated on the test set.
+It's very compact, so the complete code fits here as well:
+
+```python
+from sklearn.neural_network import MLPClassifier
+from sklearn.datasets import fetch_mldata
+
+if __name__ == '__main__':
+    # stores data in ~/scikit_learn_data by default
+    mnist = fetch_mldata('MNIST original')
+    split = 60000
+
+    X, y = mnist.data / 255., mnist.target
+
+    X_train, X_test = X[:split], X[split:]
+    y_train, y_test = y[:split], y[split:]
+
+    # mlp = MLPClassifier(verbose=10)
+
+    mlp = MLPClassifier(verbose=10,
+                        hidden_layer_sizes=(100, 100),
+                        max_iter=400, alpha=1e-4,
+                        solver='sgd',
+                        tol=1e-4,
+                        random_state=1,
+                        learning_rate_init=.1)
+
+    mlp.fit(X_train, y_train)
+
+    print("training set score: %0.6f" % mlp.score(X_train, y_train))
+    print("test set score: %0.6f" % mlp.score(X_test, y_test))
+```
+
+When you run it, you can see the weights converging:
+
+```shell
+$ python hellosklearn.py
+Iteration 1, loss = 0.28833772
+Iteration 2, loss = 0.10794344
+...
+Iteration 20, loss = 0.00887355
+Training loss did not improve more than tol=0.000100 for two consecutive epochs. Stopping.
+training set score: 0.998233
+test set score: 0.978500
+```
+
+The model achieved a test score of 97.8, which is similar to the performance
+of a human on this task.
+
+Optimizing hyperparameters
+--------------------------
+
+We use the training data to learn the weights of a given neural network
+architecture. We can also learn the parameters of the architecute, if we split
+up our data carefully.
+
+To find a good architecture, we can use GridSearchCV from the scikit-learn library. We
+define our parameters like a grid and the grid searcher will run each model and report
+the results.
+
+```python
+    parameters = {
+        'hidden_layer_sizes': ((1,), (2,), (5,), (2, 2), (10,), (50,), (50, 50), (100,)),
+        'activation': ('relu', 'tanh'),
+    }
+
+    mlp = MLPClassifier()
+    clf = GridSearchCV(mlp, parameters, verbose=10, n_jobs=multiprocessing.cpu_count(), cv=3)
+```
+
+The complete code can be found in [sknngrid.py](https://github.com/miku/nntour/blob/master/code/sknngrid.py).
+Since we have to evaluate a lot of models, this can actually take some time:
+
+```python
+$ python sknngrid.py
+```
+
+JSON-serialized results of such a search can be found in this [file](https://raw.githubusercontent.com/miku/nntour/master/code/sknngrid.json?token=AADRye08kPwWDf3DdCdxs58kuEoXYnprks5YM1qCwA%3D%3D).
+
+You can read this quickly with Pandas:
+
+```python
+>>> df = pd.read_json("sknngrid.json")
+>>> cols = [c for c in df.columns if 'param_' in c] + ["mean_test_score"]
+>>> print(df[cols].sort_values(by="mean_test_score"))
+
+#    param_activation param_hidden_layer_sizes  mean_test_score
+# 8              tanh                      [1]         0.377567
+# 0              relu                      [1]         0.425683
+# 3              relu                   [2, 2]         0.629633
+# 11             tanh                   [2, 2]         0.670550
+# 9              tanh                      [2]         0.672917
+# 1              relu                      [2]         0.682650
+# 10             tanh                      [5]         0.886200
+# 2              relu                      [5]         0.892267
+# 12             tanh                     [10]         0.923050
+# 4              relu                     [10]         0.929633
+# 14             tanh                 [50, 50]         0.962433
+# 13             tanh                     [50]         0.962500
+# 6              relu                 [50, 50]         0.964950
+# 5              relu                     [50]         0.965833
+# 15             tanh                    [100]         0.970833
+# 7              relu                    [100]         0.972000
+```
+

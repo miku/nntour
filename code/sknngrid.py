@@ -43,11 +43,8 @@ if __name__ == '__main__':
     y_train, y_test = y[:split], y[split:]
 
     parameters = {
-        # 'hidden_layer_sizes': ((1,), (2,), (5,), (2, 2), (10,), (50,), (50, 50), (100,)),
-        # 'activation': ('relu', 'tanh'),
-
-        'hidden_layer_sizes': ((1,)),
-        'activation': ('relu',),
+        'hidden_layer_sizes': ((1,), (2,), (5,), (2, 2), (10,), (50,), (50, 50), (100,)),
+        'activation': ('relu', 'tanh'),
     }
 
     mlp = MLPClassifier()
