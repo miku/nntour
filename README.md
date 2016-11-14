@@ -495,6 +495,10 @@ work better with GPUs.
 * [hellotf.py](https://github.com/miku/nntour/blob/master/code/hellotf.py)
 * [hellokeras.py](https://github.com/miku/nntour/blob/master/code/hellokeras.py)
 
+Cast of [running the examples](https://asciinema.org/a/6x8kv2b7x4ba5rw1yjnrt3yqk?autoplay=1).
+
+
+
 Appendix
 --------
 
