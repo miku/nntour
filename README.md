@@ -1,130 +1,86 @@
-ML tour
-=======
+Neural nets intro
+=================
 
-Excerpts from [CS156, Neural Networks](https://www.youtube.com/watch?v=Ih5Mr93E-2c).
+Leipzig Python User Group Meeting, 2016-11-08, 7PM CEST.
 
-Past models: perceptron, linear regression, logistic regression.
+There are some [slides](https://github.com/miku/nntour/blob/master/Slides.pdf) available.
 
-Arbitrary non-linear twice-differentiable (smooth) function. Next best: convex
-function: gradient descent. Go along the negative of the gradient in fixed
-sized steps (learning rates).
+Code examples
+-------------
 
-More general version: stochastic gradient descent.
+Code examples go progressively from a simple perceptron to multi-layer
+perceptron to basic examples in tensorflow and keras.
 
-Intro
------
+If you want to re-generate the gifs, you'll additionally need:
 
-Easy to implement. Not model of choice, rather SVM.
+* [convert](https://www.imagemagick.org/script/convert.php)
+* [gifsicle](https://www.lcdf.org/gifsicle/)
 
-SGD
----
+Setup a virtual environment:
 
-GD minimizes an error function (of the weights). Also in-sample error. A
-measure between the targets the hypothesis yields and the real targets,
-somehow averaged.
+```
+$ git clone git@github.com:miku/nntour.git
+$ cd nntour
+$ mkvirtualenv nntour
+$ pip install -r requirements.txt
+```
 
-The hypothesis needs to be evaluated at *every* point in the sample, because
-we want an average error.
+Perceptron
+----------
 
-GD = batch GD.
+```
+$ cd code
+$ python perceptron.py
+PLA [ 0.41936044  0.63425651  0.61163369], misses: 10
+PLA [ 1.41936044 -0.02270848  0.38862569], misses: 13
+PLA [ 0.41936044  0.32147436  1.02536083], misses: 23
+...
+PLA [ 3.41936044  3.62861005  3.65291291], misses: 1
+PLA [ 4.41936044  2.852118    3.45032823], misses: 6
+PLA [ 3.41936044  3.14911762  4.09151075], misses: 0
+PLA: final weights: [ 3.41936044  3.14911762  4.09151075]
+```
 
-SGD uses just one example at the time.
+To generate a visualization of the perceptron learning algorithm, run:
 
-* pick one example (randomly) at a time
-* apply GD on that point (remember perceptron learning algorithm)
-* think about average direction you decent along, expected value is the same as in batch version
+```
+$ make perceptron.gif
+...
 
-Much cheaper. Randomization (which can be advantageous).
+![](https://raw.githubusercontent.com/miku/nntour/master/gifs/perceptron-pla-14-steps.gif?token=AADRybgfQ0WmVaU-NZbgwHdoFhCN-XdVks5YMzirwA%3D%3D)
 
-Cases where randomization helps:
+Random weights
+--------------
 
-* in NN you have lots of hills and valleys in the error surface
-* ESCAPE from the local minimum
+Just as an illustration, we could just update weights randomly. We do 30
+iterations and keep the weights, that resulted in a lowest number of
+misclassifations.
 
-![](images/Escape_from_the_local_minimum.jpg)
+```
+$ make random.gif
+Random [ 0.43490987  0.87102943  0.86271172], misses: 2
+Random [ 0.06800412  0.48192075  0.23343312], misses: 18
+Random [ 0.18258518  0.49428513  0.63182014], misses: 12
+...
+Random [ 0.45736977  0.80506182  0.13310176], misses: 15
+Random [ 0.66580646  0.60613739  0.1751008 ], misses: 19
+Random [ 0.09629388  0.11127787  0.40534235], misses: 17
+```
 
-Neural network model
---------------------
+![](https://raw.githubusercontent.com/miku/nntour/master/gifs/random-weight-updates-12-misses-30-steps.gif?token=AADRycwXZArATTxIvSy-FbFoUP69glGIks5YMznTwA%3D%3D)
 
-TODO.
+Pocket algorithm
+----------------
 
-Backpropagation
----------------
+Variation of the perceptron learning algorithm, that works with non-separable
+data too. Use the PLA for separable data, but remember the weights, that led
+to the lowest number of misclassifations.
 
-TODO.
+We iterate 50 times, the draw the best weight found so far.
 
-Implementation
-==============
+```
+$ make pocket.gif
+```
 
-* Various minimal variants
-* Keras, http://machinelearningmastery.com/tutorial-first-neural-network-python-keras/
-* Tensorflow
-* scikit-learn
-
-The activation function
------------------------
-
-* Sigmoid, Tanh, ReLU
-* Pros and cons of different activation functions?
-* Softmax
-
-Forward propagation
--------------------
-
-1. Take weights and input plus bias to compute the input to a layer.
-2. Apply activation function to input.
-3. Repeat
-
-Last layer may be different, e.g. softmax to get probabilities?
-
-We search the right parameters (weights plus bias) to minimize the error on the training data.
-
-Zoo of loss functions
----------------------
-
-* square loss
-* hinge loss
-* logistic loss
-* cross-entropy loss
-
-[Are Loss Functions All the Same?](http://web.mit.edu/lrosasco/www/publications/loss.pdf)
-
-> The main outcome of our analysis is that, for classification, the hinge loss
-> appears to be the loss of choice. Other things being equal, the hinge loss
-> leads to a convergence rate practically indistinguishable from the logistic
-> loss rate and much better than the square loss rate.
-
-Usually loss plus regularization (prevent parameters from getting *too big*).
-
-More: http://www.ics.uci.edu/~dramanan/teaching/ics273a_winter08/lectures/lecture14.pdf
-
-Minimizing the error
---------------------
-
-Gradient descent and variants.
-
-Input: Vector of derivatives of the loss function with respect to parameters (weights, biases).
-
-Use backpropagation, so find this vector of derivatives.
-
-Aka: credit assignment problem.
-
-MLP from sklearn
-================
-
-* http://scikit-learn.org/stable/modules/neural_networks_supervised.html
-
-Presentation
-============
-
-* ML problem
-* supervised, unsupervised
-* search for a model
-* e.g. given an architecture, find the right parameters
-* classification, separable data
-* perceptron example, gif!, python example
-* logical functions, images
-* example AND, OR, NOT (show, than ask if people recognize these functions)
-* embedded narrative: mappings of logical functions (PH)
-* the problem of XOR
+![](https://raw.githubusercontent.com/miku/nntour/master/gifs/pocket-0.1-noise-50-steps.gif?token=AADRyY4AHyWd4J3ptro3MS8d4Qo7uWElks5YMzrlwA%3D%3D)
 

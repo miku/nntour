@@ -9,7 +9,7 @@ images/perceptron-END.png:
 
 perceptron.gif: images/perceptron-END.png
 	# convert to gif
-	for i in $$(find images -name "perceptron-*png"); do [ ! -e "$${i%.png}.gif" ] && convert $$i $${i%.png}.gif; done
+	for i in $$(find images -name "perceptron-*png"); do [ -e "$${i%.png}.gif" ] || convert $$i $${i%.png}.gif; done
 	# convert final image to gif
 	convert images/perceptron-END.png images/perceptron-END.gif
 	# concat, repeat last frame ten times

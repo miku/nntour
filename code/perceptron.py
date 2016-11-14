@@ -132,12 +132,13 @@ if __name__ == '__main__':
     if not os.path.exists('images'):
         os.makedirs('images')
 
-    # generate example data
-    X, y = generate_points(100)
+    while True:
+        # generate example data
+        X, y = generate_points(100)
 
-    # check, if we have example data for both classes
-    if len(set(y)) == 1:
-        raise ValueError('bad luck, sample data has only a single class')
+        # check, if we have example data for both classes
+        if len(set(y)) > 1:
+            break
 
     W = perceptron_learning_algorithm(X, y)
 
