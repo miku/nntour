@@ -497,8 +497,7 @@ work better with GPUs.
 
 Cast of [running the examples](https://asciinema.org/a/6x8kv2b7x4ba5rw1yjnrt3yqk?autoplay=1).
 
-![]()
-
+![](http://i.imgur.com/U3ciWGN.gif)
 
 Appendix
 --------
