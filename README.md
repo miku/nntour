@@ -62,7 +62,7 @@ Random weights
 --------------
 
 Just as an illustration, we could just update weights randomly. We do 30
-iterations and keep the weights, that resulted in a lowest number of
+iterations and keep the weights, that resulted in the lowest number of
 misclassifations.
 
 ```shell
@@ -78,17 +78,17 @@ Random: final weights: [ 0.60895934  0.61896042  0.39653134]
 
 ![](https://raw.githubusercontent.com/miku/nntour/master/gifs/random-weight-updates-12-misses-30-steps.gif?token=AADRycwXZArATTxIvSy-FbFoUP69glGIks5YMznTwA%3D%3D)
 
-Not too bad, but this data set is also quite simple. Random weight would not
+Not too bad, but this data set is also quite simple. Random weights would not
 work well in more complated settings.
 
 Pocket algorithm
 ----------------
 
-Variation of the perceptron learning algorithm, that works with non-separable
-data too. Use the PLA for separable data, but remember the weights, that led
-to the lowest number of misclassifations.
+The pocket algorithm is a variation of the perceptron learning algorithm
+(PLA), that works with non-separable data, too. Use the PLA as before, but
+*remember* the weights, that led to the lowest number of misclassifations.
 
-We iterate 50 times, the draw the best weight found so far.
+We iterate 50 times, then draw the best weights found so far.
 
 ```shell
 $ make pocket.gif
@@ -127,15 +127,15 @@ Example with 50 iterations.
 A basic neural network
 ----------------------
 
-The perceptron is a limited model. A neural net combines multiple perceptrons
-in one or more layers.
+The perceptron is a limited model. A neural net combines one or more
+perceptrons in one or more layers.
 
-The example neural network has a single hidden layer with four nodes. Input is
-propageted into the hidden layer, then, from the hidden layer to the output
-layer. Essentially we take the *weighted sum* of the inputs into a node and pass
-it though an *activation function*.
+The example neural network has a single hidden layer with four nodes. The
+input is propagated into the hidden layer, then, from the hidden layer to the
+output layer. Essentially we take the *weighted sum* of the inputs into a node
+and pass it through an *activation function*.
 
-The architecture of out example looks like this:
+The architecture of our example looks like this:
 
 ![](https://raw.githubusercontent.com/miku/nntour/master/code/basicnn.png?token=AADRyUWCnPZsiXLrdKs9NDpR7ulSWR5kks5YMz0HwA%3D%3D)
 
@@ -144,7 +144,8 @@ nodes in the hidden layer (1x4). We then map the values from the hidden layer
 (1x4) with another set of weights (4x1) into the output layer, which will
 result in a single number.
 
-In our example we want to learn an XOR-ish boolean function.
+In our example we might want to learn an XOR-ish boolean function. XOR over
+the first two columns.
 
 ```python
     X = np.array([
@@ -173,7 +174,7 @@ We initialize the weights:
 ```
 
 We do a forward-pass, compute a loss (measure of our *wrongness*) and [backprop](https://page.mi.fu-berlin.de/rojas/neural/chapter/K7.pdf)
-the error a fixed number of iterations, e.g. 10000.
+the error. We repeat this a fixed number of times, e.g. 10000.
 
 ```python
     # 10000 x FP, BP
@@ -207,9 +208,9 @@ function, we can actually enumerate the whole domain:
         [1, 1, 1]])
 ```
 
-One nice property of neural nets is the asymmetry between training and
-testing. It can take weeks to train a complicated neural network, but
-milliseconds to use it, once we have some weights.
+One nice property of neural nets is the asymmetry between training time and
+testing time. It can take weeks to train a complicated neural network, but
+milliseconds to use it, once we have a set of weights.
 
 For the state-of-art [ImageNet](http://image-net.org/) competitions, you can
 find weight files on the [internet](http://pjreddie.com/darknet/imagenet/).
@@ -226,7 +227,7 @@ We compute the activations and pretty print the results:
     print(table)
 ```
 
-The output tells us, what the neural net computes as output (yhat) for a given
+The table shows, what the neural net computes as output (yhat) for a given
 input (x).
 
 ```shell
@@ -244,7 +245,7 @@ $ python basicnn.py
   1    1    1    0.02
 ```
 
-Here, it learned XOR over the first two columns perfectly. But since neural
+Here, it learned XOR over the first two columns quite well. But since neural
 nets are probabilistic (the weights are initialized randomly and it only saw a
 very limited number of examples), it can yield other results as well.
 
@@ -264,9 +265,12 @@ $ python basicnn.py
 ```
 
 Here, it is still on the XOR side (since 0.51 and 0.52 can be rounded to 1),
-but it is less certain in the case 0-1-0 and 1-0-0.
+but it seems less certain (than in the previous run) in the 0-1-0 and 1-0-0
+case.
 
 ```shell
+$ python basicnn.py
+
   x    x    x    yhat
 ---  ---  ---  ------
   0    0    0    0.05
@@ -281,7 +285,7 @@ but it is less certain in the case 0-1-0 and 1-0-0.
 
 Here, 0-1-0 is misclassfied (if we assume XOR) as 0 (0.16 rounded down).
 
-The complete code, since it's small.
+The complete code, since it's small:
 
 ```python
 #!/usr/bin/env python
@@ -361,15 +365,14 @@ Multi-layer perceptron with scikit-learn
 ----------------------------------------
 
 Before we go on, we introducte the MNIST dataset. Handwritten digits. The
-drosophyla of machine learning tasks.
+drosophila among machine learning tasks.
 
-Here are 32 samples of input images (28x28) from MNIST:
+Here are 32 image samples (28x28) from MNIST:
 
 ![](https://raw.githubusercontent.com/miku/nntour/master/code/mnistimage.png?token=AADRyVdLR1KdvKbLRFN8F-rRhXMBGjKFks5YM1c3wA%3D%3D)
 
-
-With scikit-learn, setting up an architecture is done in the constructor. Here
-we use two hidden layers with 100 nodes each and stochastic gradient descent:
+With scikit-learn, setting up an architecture is done in the constructor. Here,
+we use two hidden layers with 100 nodes each and stochastic gradient descent as our *solver*.
 
 ```python
     mlp = MLPClassifier(verbose=10,
@@ -437,9 +440,11 @@ We use the training data to learn the weights of a given neural network
 architecture. We can also learn the parameters of the architecute, if we split
 up our data carefully.
 
-To find a good architecture, we can use GridSearchCV from the scikit-learn library. We
-define our parameters like a grid and the grid searcher will run each model and report
-the results.
+To find a good architecture, we can use *GridSearchCV* from the scikit-learn
+library. We define our parameters like a grid and the grid searcher will
+evaluate each model and report the results. Thanks to
+[joblib](https://pythonhosted.org/joblib/), we can use all cores for this
+task.
 
 ```python
     parameters = {
@@ -456,6 +461,7 @@ Since we have to evaluate a lot of models, this can actually take some time:
 
 ```shell
 $ python sknngrid.py
+...
 ```
 
 JSON-serialized results of such a search can be found in this [file](https://raw.githubusercontent.com/miku/nntour/master/code/sknngrid.json?token=AADRye08kPwWDf3DdCdxs58kuEoXYnprks5YM1qCwA%3D%3D).
@@ -495,7 +501,7 @@ work better with GPUs.
 * [hellotf.py](https://github.com/miku/nntour/blob/master/code/hellotf.py)
 * [hellokeras.py](https://github.com/miku/nntour/blob/master/code/hellokeras.py)
 
-Cast of [running the examples](https://asciinema.org/a/6x8kv2b7x4ba5rw1yjnrt3yqk?autoplay=1).
+Cast of [learning MNIST](https://asciinema.org/a/6x8kv2b7x4ba5rw1yjnrt3yqk?autoplay=1).
 
 ![](https://github.com/miku/nntour/raw/master/gifs/tfkeras.gif)
 
