@@ -155,7 +155,7 @@ In our example we want to learn an XOR-ish boolean function.
     y = np.array([[0, 1, 1, 0]]).T
 ```
 
-Why not XOR and only XOR-ish. This is only an example and the underlying
+Why not XOR and only XOR-ish? This is only an example and the underlying
 process could be something else than XOR (over the first two columns). For
 example, it is also true, that the output is zero, if we have an odd number
 of 1s in the input.
@@ -172,7 +172,8 @@ We initialize the weights:
     s1 = np.random.random((4, 1))
 ```
 
-The do forward-pass and backward propagation a given number of times, e.g. 10000.
+We do a forward-pass, compute a loss (measure of our *wrongness*) and [backprop](https://page.mi.fu-berlin.de/rojas/neural/chapter/K7.pdf)
+the error a fixed number of iterations, e.g. 10000.
 
 ```python
     # 10000 x FP, BP
