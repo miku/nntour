@@ -47,7 +47,7 @@ PLA [ 3.41936044  3.14911762  4.09151075], misses: 0
 PLA: final weights: [ 3.41936044  3.14911762  4.09151075]
 ```
 
-To generate a visualization of the perceptron learning algorithm, run:
+To generate a visualization of the perceptron learning algorithm (PLA), run:
 
 ```shell
 $ make perceptron.gif
