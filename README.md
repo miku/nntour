@@ -54,7 +54,7 @@ $ make perceptron.gif
 ...
 ```
 
-It learn a perfect boundary on separable data in finite steps:
+It learns a perfect boundary on separable data in finite steps:
 
 ![](https://raw.githubusercontent.com/miku/nntour/master/gifs/perceptron-pla-14-steps.gif?token=AADRybgfQ0WmVaU-NZbgwHdoFhCN-XdVks5YMzirwA%3D%3D)
 
@@ -77,6 +77,9 @@ Random: final weights: [ 0.60895934  0.61896042  0.39653134]
 ```
 
 ![](https://raw.githubusercontent.com/miku/nntour/master/gifs/random-weight-updates-12-misses-30-steps.gif?token=AADRycwXZArATTxIvSy-FbFoUP69glGIks5YMznTwA%3D%3D)
+
+Not too bad, but this data set is also quite simple. Random weight would not
+work well in more complated settings.
 
 Pocket algorithm
 ----------------
