@@ -54,6 +54,8 @@ $ make perceptron.gif
 ...
 ```
 
+It learn a perfect boundary on separable data in finite steps:
+
 ![](https://raw.githubusercontent.com/miku/nntour/master/gifs/perceptron-pla-14-steps.gif?token=AADRybgfQ0WmVaU-NZbgwHdoFhCN-XdVks5YMzirwA%3D%3D)
 
 Random weights
