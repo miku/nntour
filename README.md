@@ -46,6 +46,7 @@ To generate a visualization of the perceptron learning algorithm, run:
 ```
 $ make perceptron.gif
 ...
+```
 
 ![](https://raw.githubusercontent.com/miku/nntour/master/gifs/perceptron-pla-14-steps.gif?token=AADRybgfQ0WmVaU-NZbgwHdoFhCN-XdVks5YMzirwA%3D%3D)
 
