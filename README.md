@@ -28,6 +28,12 @@ $ pip install -r requirements.txt
 Perceptron
 ----------
 
+Back in the 60', the perceptron had to be wired together:
+
+![](https://raw.githubusercontent.com/miku/nntour/master/images/mark_i_perceptron.jpg?token=AADRyZFbva3GpVXGje6ozLbLEJ2c6R_zks5YM1s3wA%3D%3D)
+
+Writing python is much more convenient.
+
 ```shell
 $ cd code
 $ python perceptron.py
@@ -91,6 +97,27 @@ pocket: final weights: [ 0.26545497  0.68834657  0.85203842]
 ```
 
 ![](https://raw.githubusercontent.com/miku/nntour/master/gifs/pocket-0.1-noise-50-steps.gif?token=AADRyY4AHyWd4J3ptro3MS8d4Qo7uWElks5YMzrlwA%3D%3D)
+
+A line cannot separate XOR
+--------------------------
+
+The XOR function cannot be separated by a line. The perceptron learning algorithm,
+albeit simple and powerful is not able to learn good weights:
+
+```shell
+$ make xorish.gif
+xorish [ 0.83250694  0.46229229  0.65215989], misses: 52
+xorish [-0.16749306  1.13984365 -0.07202366], misses: 50
+xorish [ 0.83250694  0.83194263 -0.68367205], misses: 38
+...
+xorish [-0.16749306  0.92461352  0.09322218], misses: 47
+xorish [ 0.83250694  0.14551118 -0.16669564], misses: 50
+xorish: final weights: [ 0.83250694  1.82534411 -2.09731963]
+```
+
+Example with 50 iterations. 
+
+![](https://raw.githubusercontent.com/miku/nntour/master/gifs/xorish-50-steps.gif?token=AADRyfLyGFooSEFwxhYeV1keU9C1Toaeks5YM1zwwA%3D%3D)
 
 A basic neural network
 ----------------------
@@ -421,7 +448,7 @@ the results.
 The complete code can be found in [sknngrid.py](https://github.com/miku/nntour/blob/master/code/sknngrid.py).
 Since we have to evaluate a lot of models, this can actually take some time:
 
-```python
+```shell
 $ python sknngrid.py
 ```
 
@@ -453,3 +480,9 @@ You can read this quickly with Pandas:
 # 7              relu                    [100]         0.972000
 ```
 
+Appendix
+--------
+
+Activation function options:
+
+![](https://raw.githubusercontent.com/miku/nntour/master/code/sigmoid_fncs.png?token=AADRya7DenPlrhsD2124SUoRe4INHHwVks5YM1upwA%3D%3D)
