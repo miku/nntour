@@ -158,3 +158,93 @@ The do forward-pass and backward propagation a given number of times, e.g. 10000
         s0 += X.T.dot(l1_delta)
 ```
 
+Finally we can test our model on unseen data. Since this is a boolean
+function, we can actually enumerate the whole domain:
+
+```
+    # test our model on unseen data
+    test_data = np.array([
+        [0, 0, 0],
+        [0, 0, 1],
+        [0, 1, 0],
+        [0, 1, 1],
+        [1, 0, 0],
+        [1, 0, 1],
+        [1, 1, 0],
+        [1, 1, 1]])
+```
+
+One nice property of neural nets is the asymmetry between training and
+testing. It can take weeks to train a complicated neural network, but
+milliseconds to use it, once we have some weights.
+
+For the state-of-art [ImageNet](http://image-net.org/) competitions, you can
+find weight files on the [internet](http://pjreddie.com/darknet/imagenet/).
+
+We compute the activations and pretty print the results:
+
+```
+    # activations for all examples at once
+    l1 = 1 / (1 + np.exp(-np.dot(test_data, s0)))
+    l2 = 1 / (1 + np.exp(-np.dot(l1, s1)))
+
+    table = tabulate(np.concatenate((test_data.astype(np.int), np.around(l2, decimals=2)), axis=1),
+                     headers=['x', 'x', 'x', 'yhat'], tablefmt='simple')
+    print(table)
+```
+
+The output tells us, what the neural net computes as output (yhat) for a given
+input (x).
+
+```
+$ python basicnn.py
+
+  x    x    x    yhat
+---  ---  ---  ------
+  0    0    0    0.11
+  0    0    1    0
+  0    1    0    0.97
+  0    1    1    0.99
+  1    0    0    0.97
+  1    0    1    0.99
+  1    1    0    0.02
+  1    1    1    0.02
+```
+
+Here, it learned XOR over the first two columns perfectly. But since neural
+nets are probabilistic (the weights are initialized randomly and it only saw a
+very limited number of examples), it can yield other results as well.
+
+```
+$ python basicnn.py
+
+ x    x    x    yhat
+---  ---  ---  ------
+  0    0    0    0.05
+  0    0    1    0
+  0    1    0    0.51
+  0    1    1    0.99
+  1    0    0    0.52
+  1    0    1    0.99
+  1    1    0    0.01
+  1    1    1    0.01
+```
+
+Here, it is still on the XOR side (since 0.51 and 0.52 can be rounded to 1),
+but it is less certain in the case 0-1-0 and 1-0-0.
+
+```
+  x    x    x    yhat
+---  ---  ---  ------
+  0    0    0    0.05
+  0    0    1    0.01
+  0    1    0    0.16
+  0    1    1    0.99
+  1    0    0    0.57
+  1    0    1    0.99
+  1    1    0    0
+  1    1    1    0.01
+```
+
+Here, 0-1-0 is misclassfied (if we assume XOR) as 0 (0.16 rounded down).
+
