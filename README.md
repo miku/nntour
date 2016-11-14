@@ -1,7 +1,7 @@
 Neural nets intro
 =================
 
-[Leipzig Python User Group](https://twitter.com/lpyug) Meeting, 2016-11-08, 7PM CEST.
+[Leipzig Python User Group](https://twitter.com/lpyug) Meeting at [Basislager](http://basislager.co/), 2016-11-08, 7PM CEST.
 
 There are [slides](https://github.com/miku/nntour/blob/master/Slides.pdf) available.
 
