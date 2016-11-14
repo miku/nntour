@@ -1,9 +1,9 @@
 Neural nets intro
 =================
 
-Leipzig Python User Group Meeting, 2016-11-08, 7PM CEST.
+[Leipzig Python User Group](https://twitter.com/lpyug) Meeting, 2016-11-08, 7PM CEST.
 
-There are some [slides](https://github.com/miku/nntour/blob/master/Slides.pdf) available.
+There are [slides](https://github.com/miku/nntour/blob/master/Slides.pdf) available.
 
 Code examples
 -------------
@@ -479,6 +479,15 @@ You can read this quickly with Pandas:
 # 15             tanh                    [100]         0.970833
 # 7              relu                    [100]         0.972000
 ```
+
+Recent libraries
+----------------
+
+Tensorflow and keras are newer libraries for building neural networks. They
+work better with GPUs.
+
+* [hellotf.py](https://github.com/miku/nntour/blob/master/code/hellotf.py)
+* [hellokeras.py](https://github.com/miku/nntour/blob/master/code/hellokeras.py)
 
 Appendix
 --------
