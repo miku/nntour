@@ -194,7 +194,7 @@ the error a fixed number of iterations, e.g. 10000.
 Finally we can test our model on unseen data. Since this is a boolean
 function, we can actually enumerate the whole domain:
 
-```
+```python
     # test our model on unseen data
     test_data = np.array([
         [0, 0, 0],
@@ -216,7 +216,7 @@ find weight files on the [internet](http://pjreddie.com/darknet/imagenet/).
 
 We compute the activations and pretty print the results:
 
-```
+```python
     # activations for all examples at once
     l1 = 1 / (1 + np.exp(-np.dot(test_data, s0)))
     l2 = 1 / (1 + np.exp(-np.dot(l1, s1)))
@@ -229,7 +229,7 @@ We compute the activations and pretty print the results:
 The output tells us, what the neural net computes as output (yhat) for a given
 input (x).
 
-```
+```shell
 $ python basicnn.py
 
   x    x    x    yhat
@@ -248,7 +248,7 @@ Here, it learned XOR over the first two columns perfectly. But since neural
 nets are probabilistic (the weights are initialized randomly and it only saw a
 very limited number of examples), it can yield other results as well.
 
-```
+```shell
 $ python basicnn.py
 
  x    x    x    yhat
@@ -266,7 +266,7 @@ $ python basicnn.py
 Here, it is still on the XOR side (since 0.51 and 0.52 can be rounded to 1),
 but it is less certain in the case 0-1-0 and 1-0-0.
 
-```
+```shell
   x    x    x    yhat
 ---  ---  ---  ------
   0    0    0    0.05
