@@ -10,7 +10,7 @@ Suitable card to go with larger models[1]: https://www.amazon.de/dp/B00TWFEIWA
 > faster than using just the CPU, cutting training time down from hours to
 > minutes. [2]
 
-Impressive growth: http://www.nvidia.com/content/events/geoInt2015/LBrown_DL.pdf#9
+Impressive growth: http://www.nvidia.com/content/events/geoInt2015/LBrown_DL.pdf#page=9
 
 
 [1] https://github.com/fchollet/keras/blob/master/examples/mnist_mlp.py
