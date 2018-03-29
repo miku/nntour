@@ -63,6 +63,7 @@ model.summary()
 
 # > Four ways to speed up mini-­‐batch learning
 # > [...] rmsprop, http://www.cs.toronto.edu/~tijmen/csc321/slides/lecture_slides_lec6.pdf
+# https://keras.io/losses/
 model.compile(loss='categorical_crossentropy', optimizer='rmsprop', metrics=['accuracy'])
 
 # > Trains the model for a fixed number of epochs.
