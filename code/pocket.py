@@ -62,7 +62,7 @@ def pocket_algorithm(X, y, directory='images', max_iterations=50):
             bestW = W
 
         # draw current state
-        filename = "images/pocket-%08d" % iteration
+        filename = "images/pocket-%08d.png" % iteration
         title = '#%d' % iteration
         drawimg(X, y, W, filename=filename, title=title)
 
@@ -76,7 +76,7 @@ def pocket_algorithm(X, y, directory='images', max_iterations=50):
     W = bestW
 
     # draw final state
-    filename = 'images/pocket-END'
+    filename = 'images/pocket-END.png'
     title = '#%d END' % iteration
     drawimg(X, y, W, filename=filename, title=title)
 

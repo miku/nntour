@@ -110,7 +110,7 @@ def perceptron_learning_algorithm(X, y, directory='images'):
             break
 
         # draw current state
-        filename = "images/perceptron-%08d" % iteration
+        filename = "images/perceptron-%08d.png" % iteration
         title = '#%d' % iteration
         drawimg(X, y, W, filename=filename, title=title)
 
@@ -121,7 +121,7 @@ def perceptron_learning_algorithm(X, y, directory='images'):
         iteration += 1
 
     # draw final state
-    filename = 'images/perceptron-END'
+    filename = 'images/perceptron-END.png'
     title = '#%d END' % iteration
     drawimg(X, y, W, filename=filename, title=title)
 

@@ -18,7 +18,7 @@ Impressive growth: http://www.nvidia.com/content/events/geoInt2015/LBrown_DL.pdf
 """
 
 from keras.datasets import mnist
-from keras.layers import Dense, Activation
+from keras.layers import Dense, Activation, Dropout
 from keras.models import Sequential
 from keras.utils import np_utils
 
@@ -45,10 +45,10 @@ Y_test = np_utils.to_categorical(y_test, nb_classes)
 model = Sequential()
 model.add(Dense(10, input_shape=(784,)))
 model.add(Activation('relu'))
-# model.add(Dropout(0.2))
-# model.add(Dense(512))
-# model.add(Activation('relu'))
-# model.add(Dropout(0.2))
+model.add(Dropout(0.2))
+model.add(Dense(512))
+model.add(Activation('relu'))
+model.add(Dropout(0.2))
 model.add(Dense(10))
 model.add(Activation('softmax'))
 model.summary()
@@ -64,7 +64,9 @@ model.summary()
 # > Four ways to speed up mini-­‐batch learning
 # > [...] rmsprop, http://www.cs.toronto.edu/~tijmen/csc321/slides/lecture_slides_lec6.pdf
 # https://keras.io/losses/
-model.compile(loss='categorical_crossentropy', optimizer='rmsprop', metrics=['accuracy'])
+model.compile(loss='categorical_crossentropy',
+              optimizer='rmsprop',
+              metrics=['accuracy'])
 
 # > Trains the model for a fixed number of epochs.
 model.fit(X_train, Y_train, nb_epoch=5, batch_size=32)
