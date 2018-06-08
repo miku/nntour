@@ -22,7 +22,6 @@ if __name__ == '__main__':
     s1 = np.random.random((4, 1))
 
     # 10000 x FP, BP
-    # TODO: numba.jit
     for j in range(10000):
         # sigmoid activation
         l1 = 1 / (1 + np.exp(-np.dot( X, s0)))
