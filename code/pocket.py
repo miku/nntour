@@ -11,6 +11,10 @@ Create gif:
 
 from __future__ import print_function
 from perceptron import generate_points, drawimg
+
+import matplotlib
+matplotlib.use('agg')
+
 import matplotlib.pyplot as plt
 import numpy as np
 import os

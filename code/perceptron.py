@@ -10,6 +10,8 @@ Create gif:
 """
 
 from __future__ import print_function
+import matplotlib
+matplotlib.use('agg')
 import matplotlib.pyplot as plt
 import numpy as np
 import random
