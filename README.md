@@ -3,7 +3,7 @@ Neural nets intro
 
 [Leipzig Python User Group](https://twitter.com/lpyug) Meeting at [Basislager](http://basislager.co/), 2016-11-08, 7PM CET.
 
-There are [slides](https://github.com/miku/nntour/blob/master/Slides.pdf) available.
+There are [slides](blob/master/Slides.pdf) available.
 
 Code examples
 -------------
@@ -30,7 +30,7 @@ Perceptron
 
 Back in the 60', the perceptron had to be wired together:
 
-![](https://raw.githubusercontent.com/miku/nntour/master/images/mark_i_perceptron.jpg?token=AADRyZFbva3GpVXGje6ozLbLEJ2c6R_zks5YM1s3wA%3D%3D)
+![](images/mark_i_perceptron.jpg)
 
 Writing python is much more convenient.
 
@@ -56,7 +56,7 @@ $ make perceptron.gif
 
 It learns a perfect boundary on separable data in finite steps:
 
-![](https://raw.githubusercontent.com/miku/nntour/master/gifs/perceptron-pla-14-steps.gif?token=AADRybgfQ0WmVaU-NZbgwHdoFhCN-XdVks5YMzirwA%3D%3D)
+![](gifs/perceptron-pla-14-steps.gif)
 
 Random weights
 --------------
@@ -76,7 +76,7 @@ Random [ 0.09629388  0.11127787  0.40534235], misses: 17
 Random: final weights: [ 0.60895934  0.61896042  0.39653134]
 ```
 
-![](https://raw.githubusercontent.com/miku/nntour/master/gifs/random-weight-updates-12-misses-30-steps.gif?token=AADRycwXZArATTxIvSy-FbFoUP69glGIks5YMznTwA%3D%3D)
+![](gifs/random-weight-updates-12-misses-30-steps.gif)
 
 Not too bad, but this data set is also quite simple. Random weights would not
 work well in more complated settings.
@@ -101,7 +101,7 @@ pocket [ 0.26545497  0.71145003  2.3344745 ], misses: 22
 pocket: final weights: [ 0.26545497  0.68834657  0.85203842]
 ```
 
-![](https://raw.githubusercontent.com/miku/nntour/master/gifs/pocket-0.1-noise-50-steps.gif?token=AADRyY4AHyWd4J3ptro3MS8d4Qo7uWElks5YMzrlwA%3D%3D)
+![](gifs/pocket-0.1-noise-50-steps.gif)
 
 A line cannot separate XOR
 --------------------------
@@ -120,9 +120,9 @@ xorish [ 0.83250694  0.14551118 -0.16669564], misses: 50
 xorish: final weights: [ 0.83250694  1.82534411 -2.09731963]
 ```
 
-Example with 50 iterations. 
+Example with 50 iterations.
 
-![](https://raw.githubusercontent.com/miku/nntour/master/gifs/xorish-50-steps.gif?token=AADRyfLyGFooSEFwxhYeV1keU9C1Toaeks5YM1zwwA%3D%3D)
+![](gifs/xorish-50-steps.gif)
 
 A basic neural network
 ----------------------
@@ -137,7 +137,7 @@ and pass it through an *activation function*.
 
 The architecture of our example looks like this:
 
-![](https://raw.githubusercontent.com/miku/nntour/master/code/basicnn.png?token=AADRyUWCnPZsiXLrdKs9NDpR7ulSWR5kks5YMz0HwA%3D%3D)
+![](code/basicnn.png)
 
 We have three input values (1x3), which we map with weights (3x4) into four
 nodes in the hidden layer (1x4). We then map the values from the hidden layer
@@ -358,7 +358,7 @@ if __name__ == '__main__':
 #  [ 1.    0.    1.    0.98]
 #  [ 1.    1.    0.    0.02]
 #  [ 1.    1.    1.    0.02]]
-#  
+#
 ```
 
 Multi-layer perceptron with scikit-learn
@@ -369,7 +369,7 @@ drosophila among machine learning tasks.
 
 Here are 32 image samples (28x28) from MNIST:
 
-![](https://raw.githubusercontent.com/miku/nntour/master/code/mnistimage.png?token=AADRyVdLR1KdvKbLRFN8F-rRhXMBGjKFks5YM1c3wA%3D%3D)
+![](code/mnistimage.png?)
 
 With scikit-learn, setting up an architecture is done in the constructor. Here,
 we use two hidden layers with 100 nodes each and stochastic gradient descent as our *solver*.
@@ -456,7 +456,7 @@ task.
     clf = GridSearchCV(mlp, parameters, verbose=10, n_jobs=multiprocessing.cpu_count(), cv=3)
 ```
 
-The complete code can be found in [sknngrid.py](https://github.com/miku/nntour/blob/master/code/sknngrid.py).
+The complete code can be found in [sknngrid.py](blob/master/code/sknngrid.py).
 Since we have to evaluate a lot of models, this can actually take some time:
 
 ```shell
@@ -464,7 +464,7 @@ $ python sknngrid.py
 ...
 ```
 
-JSON-serialized results of such a search can be found in this [file](https://raw.githubusercontent.com/miku/nntour/master/code/sknngrid.json?token=AADRye08kPwWDf3DdCdxs58kuEoXYnprks5YM1qCwA%3D%3D).
+JSON-serialized results of such a search can be found in this [file](code/sknngrid.json).
 
 You can read this quickly with Pandas:
 
@@ -498,16 +498,16 @@ Recent libraries
 Tensorflow and keras are newer libraries for building neural networks. They
 work better with GPUs.
 
-* [hellotf.py](https://github.com/miku/nntour/blob/master/code/hellotf.py)
-* [hellokeras.py](https://github.com/miku/nntour/blob/master/code/hellokeras.py)
+* [hellotf.py](blob/master/code/hellotf.py)
+* [hellokeras.py](blob/master/code/hellokeras.py)
 
 Cast of [learning MNIST](https://asciinema.org/a/6x8kv2b7x4ba5rw1yjnrt3yqk?autoplay=1).
 
-![](https://github.com/miku/nntour/raw/master/gifs/tfkeras.gif)
+![](raw/master/gifs/tfkeras.gif)
 
 Appendix
 --------
 
 Activation function options:
 
-![](https://raw.githubusercontent.com/miku/nntour/master/code/sigmoid_fncs.png?token=AADRya7DenPlrhsD2124SUoRe4INHHwVks5YM1upwA%3D%3D)
+![](code/sigmoid_fncs.png)
